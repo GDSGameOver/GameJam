@@ -24,7 +24,7 @@ public class CryTrigger : MonoBehaviour
     private void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1000)), Vector2.zero);
-        if (Input.GetMouseButtonDown(1) && hit.collider == _colliderOfReduceVolume)
+        if (Input.GetMouseButton(1) && hit.collider == _colliderOfReduceVolume)
         {
             _crandleAnimator.SetTrigger("Swing");
             StartCoroutine(ChangeValueBySegment(_amountController.value - 1));
