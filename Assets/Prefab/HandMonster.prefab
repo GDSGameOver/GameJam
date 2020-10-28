@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2246093748020554712}
   - component: {fileID: 2246093748020554713}
   - component: {fileID: 2246093748020554714}
+  - component: {fileID: 7380312968877370168}
   m_Layer: 0
   m_Name: HandMonster
   m_TagString: Untagged
@@ -112,8 +113,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: f6f86a5fceb053d4690e2de6c4a72ade, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,7 +122,7 @@ SpriteRenderer:
   m_Size: {x: 19.199999, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &2246093748020554714
@@ -140,3 +141,15 @@ CircleCollider2D:
   m_Offset: {x: 1.04, y: 0.55}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &7380312968877370168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246093748020554715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a636f3a72f62924eb8e04778a7bc637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

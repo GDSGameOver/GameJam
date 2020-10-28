@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterMove : MonoBehaviour
+public class CrawlingMonster : MonoBehaviour
 {
     [SerializeField] private Transform _target;
-    [SerializeField] private Vector3 _startPosition;
     private float _speed;
-    Animator _animator;
 
     private void Start()
     {
@@ -16,7 +14,7 @@ public class MonsterMove : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+        Move();
     }
 
     IEnumerator Reveal()
@@ -25,5 +23,9 @@ public class MonsterMove : MonoBehaviour
         yield return new WaitForSecondsRealtime(2);
         _speed = .5f;
     }
-    
+
+    private void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+    }
 }

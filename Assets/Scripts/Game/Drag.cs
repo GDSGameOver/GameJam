@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragMonster : MonoBehaviour
+public class Drag : MonoBehaviour
 {
     private bool _isDragging;
 
