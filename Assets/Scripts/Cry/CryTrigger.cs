@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class CryTrigger : MonoBehaviour
 {
+    [SerializeField] private Cradle _cradle;
     [SerializeField] private GameObject _reduceVolume;
     [SerializeField] private Slider _amountController;
     [SerializeField] private Animator _crandleAnimator;
+    [SerializeField] private CountDownTimer _countDownTimer;
     private Collider2D _colliderOfReduceVolume;
     private bool _isVolumeIncrease;
     private AudioSource _audioSource;
     private float _duration = 1f;
+    private float _stressLevelAfterVictory;
 
     void Start()
     {
@@ -47,7 +51,7 @@ public class CryTrigger : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        StartCoroutine(ChangeValueBySegment(_amountController.value + 1));
+        StartCoroutine(ChangeValueBySegment(_amountController.value + 10));
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -84,6 +88,7 @@ public class CryTrigger : MonoBehaviour
         {
             float nextValue = Mathf.Lerp(currentSliderValue, newSliderFillValue, elapsedTime / _duration);
             _amountController.value = nextValue;
+            _stressLevelAfterVictory = _amountController.value;
             elapsedTime += Time.deltaTime;
             if (_amountController.value >= 100)
             {
@@ -91,5 +96,10 @@ public class CryTrigger : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public float GetStessLevel()
+    {
+        return _stressLevelAfterVictory;
     }
 }

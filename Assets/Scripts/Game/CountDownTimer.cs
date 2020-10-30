@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class CountDownTimer : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class CountDownTimer : MonoBehaviour
     private float _seconds;
     private float _minutes;
 
+    public event UnityAction WinConditionCompleted;
+    public event UnityAction StressTimeGetted;
+
     private void Start()
     {
         StartCoroutine(Timer());
@@ -17,7 +21,7 @@ public class CountDownTimer : MonoBehaviour
 
     IEnumerator Timer()
     {
-        while (_minutes<10)
+        while (_minutes < 3)
         {
             CurrentTime += Time.deltaTime;
             _seconds = ((int)CurrentTime % 60);
@@ -25,6 +29,11 @@ public class CountDownTimer : MonoBehaviour
 
             TimerText.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
             yield return null;
+        }
+        if (_minutes >= 3)
+        {
+            WinConditionCompleted?.Invoke();
+            StressTimeGetted?.Invoke();
         }
     }
 }
