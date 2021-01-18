@@ -26,9 +26,9 @@ public class Drag : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Furniture furniture))
-        {
-            _isDragging = false;
+       if (collision.gameObject.TryGetComponent(out Furniture furniture))
+       {
+           _isDragging = false;
         }
     }
 }

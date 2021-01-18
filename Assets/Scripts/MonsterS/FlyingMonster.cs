@@ -47,4 +47,9 @@ public class FlyingMonster : MonoBehaviour
     {
         _currentFlyPoint = _flyPoints[Random.Range(0, _flyPoints.Length)].position;
     }
+
+    public void Death()
+    {
+        _animator.SetTrigger("Death");
+    }
 }

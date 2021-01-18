@@ -31,7 +31,7 @@ public class CryTrigger : MonoBehaviour
         if (Input.GetMouseButton(1) && hit.collider == _colliderOfReduceVolume)
         {
             _crandleAnimator.SetTrigger("Swing");
-            StartCoroutine(ChangeValueBySegment(_amountController.value - 1));
+            StartCoroutine(ChangeValueBySegment(_amountController.value - 10));
             StartCoroutine(ReduceVolume());
         }
     }
@@ -51,7 +51,7 @@ public class CryTrigger : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        StartCoroutine(ChangeValueBySegment(_amountController.value + 10));
+        StartCoroutine(ChangeValueBySegment(_amountController.value + 1));
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -101,5 +101,10 @@ public class CryTrigger : MonoBehaviour
     public float GetStessLevel()
     {
         return _stressLevelAfterVictory;
+    }
+
+    public void IncreaseValueInSliderByBear()
+    {
+        StartCoroutine(ChangeValueBySegment(_amountController.value - 100));
     }
 }
