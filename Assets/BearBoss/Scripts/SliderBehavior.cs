@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SliderBehavior : MonoBehaviour
 {
@@ -15,6 +16,21 @@ public class SliderBehavior : MonoBehaviour
     [SerializeField] private Collider2D _cradleCollider;
     private float _duration = 1f;
     private float _stressLevelAfterVictory;
+
+    private void OnEnable()
+    {
+        _cradle.DamagedByClaw += IncreaseFearByClawAttack;
+    }
+
+    private void OnDisable()
+    {
+        _cradle.DamagedByClaw -= IncreaseFearByClawAttack;
+    }
+
+    private void IncreaseFearByClawAttack()
+    {
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
+    }
 
     public void IncreaseValueInSlider()
     {

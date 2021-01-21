@@ -29,6 +29,6 @@ public class Drag : MonoBehaviour
        if (collision.gameObject.TryGetComponent(out Furniture furniture))
        {
            _isDragging = false;
-        }
+       }
     }
 }
