@@ -7,6 +7,8 @@ public class Cradle : MonoBehaviour
 {
     public event UnityAction CradleDestroyed;
     public event UnityAction DamagedByClaw;
+    public event UnityAction DamagedByWhill;
+    public event UnityAction DamagedByBigSkull;
     private Vector3 _position;
 
     public void EndGameTrigger()
@@ -25,6 +27,14 @@ public class Cradle : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Claw claw))
         {
             DamagedByClaw?.Invoke();
+        }
+        if (collision.gameObject.TryGetComponent(out Whill whill))
+        {
+            DamagedByWhill?.Invoke();
+        }
+        if (collision.gameObject.TryGetComponent(out BigSkull bigSkull))
+        {
+            DamagedByBigSkull?.Invoke();
         }
     }
 }

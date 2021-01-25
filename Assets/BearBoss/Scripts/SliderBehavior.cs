@@ -20,16 +20,30 @@ public class SliderBehavior : MonoBehaviour
     private void OnEnable()
     {
         _cradle.DamagedByClaw += IncreaseFearByClawAttack;
+        _cradle.DamagedByWhill += IncreaseFearByWhillAttack;
+        _cradle.DamagedByBigSkull += IncreaseFearByBigSkullLeftAttack;
     }
 
     private void OnDisable()
     {
         _cradle.DamagedByClaw -= IncreaseFearByClawAttack;
+        _cradle.DamagedByWhill -= IncreaseFearByWhillAttack;
+        _cradle.DamagedByBigSkull -= IncreaseFearByBigSkullLeftAttack;
     }
 
     private void IncreaseFearByClawAttack()
     {
         StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
+    }
+
+    private void IncreaseFearByWhillAttack()
+    {
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 20));
+    }
+
+    private void IncreaseFearByBigSkullLeftAttack()
+    {
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 25));
     }
 
     public void IncreaseValueInSlider()
