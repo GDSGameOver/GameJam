@@ -4,13 +4,4 @@ using UnityEngine;
 
 public class BearSkullLeft : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

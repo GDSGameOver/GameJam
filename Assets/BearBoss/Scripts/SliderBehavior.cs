@@ -14,26 +14,36 @@ public class SliderBehavior : MonoBehaviour
     [SerializeField] private Animator _crandleAnimator;
     [SerializeField] private Collider2D _nightmareBearIconCollider;
     [SerializeField] private Collider2D _cradleCollider;
+    [SerializeField] private Spine _spine;
     private float _duration = 1f;
     private float _stressLevelAfterVictory;
 
     private void OnEnable()
     {
+        _spine.TouchedToBossIcon += IncreaseNightmareBySpineTouch;
         _cradle.DamagedByClaw += IncreaseFearByClawAttack;
         _cradle.DamagedByWhill += IncreaseFearByWhillAttack;
         _cradle.DamagedByBigSkull += IncreaseFearByBigSkullLeftAttack;
+        _cradle.DamagedByBoss += IncreaseFearByBossAttack;
     }
 
     private void OnDisable()
     {
+        _spine.TouchedToBossIcon -= IncreaseNightmareBySpineTouch;
         _cradle.DamagedByClaw -= IncreaseFearByClawAttack;
         _cradle.DamagedByWhill -= IncreaseFearByWhillAttack;
         _cradle.DamagedByBigSkull -= IncreaseFearByBigSkullLeftAttack;
+        _cradle.DamagedByBoss -= IncreaseFearByBossAttack;
     }
 
     private void IncreaseFearByClawAttack()
     {
         StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
+    }
+
+    private void IncreaseNightmareBySpineTouch()
+    {
+        StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value + 1));
     }
 
     private void IncreaseFearByWhillAttack()
@@ -44,6 +54,11 @@ public class SliderBehavior : MonoBehaviour
     private void IncreaseFearByBigSkullLeftAttack()
     {
         StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 25));
+    }
+
+    private void IncreaseFearByBossAttack()
+    {
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 10));
     }
 
     public void IncreaseValueInSlider()

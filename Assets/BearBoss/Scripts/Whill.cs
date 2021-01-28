@@ -4,15 +4,4 @@ using UnityEngine;
 
 public class Whill : MonoBehaviour
 {
-    
-    void Start()
-    {
-        
-    }
-
-   
-    void Update()
-    {
-        
-    }
 }
