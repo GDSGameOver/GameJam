@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearSkullLeft : MonoBehaviour
+public class BossBear : MonoBehaviour
 {
 }

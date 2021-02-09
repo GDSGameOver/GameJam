@@ -25,6 +25,8 @@ public class SliderBehavior : MonoBehaviour
         _cradle.DamagedByWhill += IncreaseFearByWhillAttack;
         _cradle.DamagedByBigSkull += IncreaseFearByBigSkullLeftAttack;
         _cradle.DamagedByBoss += IncreaseFearByBossAttack;
+        _cradle.DamagedByFlySkull += IncreaseFearByFlySkullAttack;
+        _cradle.DamagedByFlyBone += IncreaseFearByFlyBoneAttack;
     }
 
     private void OnDisable()
@@ -34,11 +36,23 @@ public class SliderBehavior : MonoBehaviour
         _cradle.DamagedByWhill -= IncreaseFearByWhillAttack;
         _cradle.DamagedByBigSkull -= IncreaseFearByBigSkullLeftAttack;
         _cradle.DamagedByBoss -= IncreaseFearByBossAttack;
+        _cradle.DamagedByFlySkull -= IncreaseFearByFlySkullAttack;
+        _cradle.DamagedByFlyBone -= IncreaseFearByFlyBoneAttack;
+    }
+
+    private void IncreaseFearByFlyBoneAttack()
+    {
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 1));
     }
 
     private void IncreaseFearByClawAttack()
     {
         StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
+    }
+
+    private void IncreaseFearByFlySkullAttack()
+    {
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 20));
     }
 
     private void IncreaseNightmareBySpineTouch()
@@ -53,7 +67,7 @@ public class SliderBehavior : MonoBehaviour
 
     private void IncreaseFearByBigSkullLeftAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 25));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
     }
 
     private void IncreaseFearByBossAttack()

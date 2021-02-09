@@ -10,6 +10,10 @@ public class Cradle : MonoBehaviour
     public event UnityAction DamagedByWhill;
     public event UnityAction DamagedByBigSkull;
     public event UnityAction DamagedByBoss;
+    public event UnityAction DamagedByFlySkull;
+    public event UnityAction DamagedByFlyBone;
+
+
     private Vector3 _position;
 
     public void EndGameTrigger()
@@ -40,6 +44,14 @@ public class Cradle : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out BossBody bossBody))
         {
             DamagedByBoss?.Invoke();
+        }
+        if (collision.gameObject.TryGetComponent(out FlySkull flySkull))
+        {
+            DamagedByFlySkull?.Invoke();
+        }
+        if (collision.gameObject.TryGetComponent(out FlyBone flyBone))
+        {
+            DamagedByFlyBone?.Invoke();
         }
     }
 }

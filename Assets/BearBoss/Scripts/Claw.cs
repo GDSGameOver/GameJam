@@ -16,11 +16,6 @@ public class Claw : MonoBehaviour
         _collider = GetComponent<Collider2D>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void Attack()
     {
         _animator.SetTrigger("Reveal");
@@ -31,5 +26,4 @@ public class Claw : MonoBehaviour
         PreparedToAttack?.Invoke();
         _animator.SetTrigger("Idle");
     }
-    
 }
