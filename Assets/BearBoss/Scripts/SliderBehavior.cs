@@ -6,6 +6,10 @@ using UnityEngine.Events;
 
 public class SliderBehavior : MonoBehaviour
 {
+    public event UnityAction NightMareLevelWentdownLess75;
+    public event UnityAction NightMareLevelWentdownLess50;
+    public event UnityAction NightMareLevelWentdownLess25;
+
     [SerializeField] private Slider _amountControllerFear;
     [SerializeField] private Slider _amountControllerNighmare;
     [SerializeField] private NightmareBearIcon _nightmareBearIcon;
@@ -116,6 +120,7 @@ public class SliderBehavior : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        
     }
 
     private IEnumerator ChangeValueFearBySegment(float newSliderFillValue)
@@ -147,6 +152,24 @@ public class SliderBehavior : MonoBehaviour
         {
             _nightmareBearIconAnimator.SetTrigger("Strike");
             StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - 1));
+            CheckNightMareLevelToCallBoss();
+        }
+        
+    }
+
+    private void CheckNightMareLevelToCallBoss()
+    {
+        if (_amountControllerNighmare.value <= 75 && _amountControllerNighmare.value >= 50)
+        {
+            NightMareLevelWentdownLess75?.Invoke();
+        }
+        if (_amountControllerNighmare.value <= 50 && _amountControllerNighmare.value >= 25)
+        {
+            NightMareLevelWentdownLess50?.Invoke();
+        }
+        if (_amountControllerNighmare.value < 25)
+        {
+            NightMareLevelWentdownLess25?.Invoke();
         }
     }
 }

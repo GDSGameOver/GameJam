@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Spine : MonoBehaviour
 {
     public event UnityAction TouchedToBossIcon;
+    public event UnityAction Destroyed;
 
     [SerializeField] private Transform _pointToMove;
     [SerializeField] private float _speed;
@@ -33,11 +34,6 @@ public class Spine : MonoBehaviour
         }
     }
 
-    public void ResetSpine()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void HitsCount()
     {
         _numberOfHits++;
@@ -51,4 +47,11 @@ public class Spine : MonoBehaviour
             TouchedToBossIcon?.Invoke();
         }
     }
+
+    public void TriggerToHideBoss()
+    {
+        Destroyed?.Invoke();
+        gameObject.SetActive(false);
+    }
+    
 }

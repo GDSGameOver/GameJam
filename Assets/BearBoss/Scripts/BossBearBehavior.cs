@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class BossBearBehavior : MonoBehaviour
 {
+    [SerializeField] private BossAttackActivator _bossAttackActivator;
     [SerializeField] private Cradle _cradle;
     [SerializeField] private Claw _claw;
+    [SerializeField] private Spine _spine;
     [SerializeField] private BigSkull[] _bigSkullAttacks;
-    [SerializeField] private Whill[] _boneWhills;
-    [SerializeField] private FlySkull[] _flySkulls;
-    [SerializeField] private Transform[] _pointsOfFlySkullsLeft;
-    [SerializeField] private Transform[] _pointsOfFlySkullsRight;
-    [SerializeField] private Transform[] _pointsOfFlySkullsUp;
-    [SerializeField] private Transform[] _pointsOfFlySkullsDown;
+    [SerializeField] private Whill[] _boneWhillsRight;
+    [SerializeField] private Whill[] _boneWhillsLeft;
+    [SerializeField] private Whill[] _boneWhillsUp;
+    [SerializeField] private FlySkull[] _flySkullsRight;
+    [SerializeField] private FlySkull[] _flySkullsLeft;
+    [SerializeField] private FlySkull[] _flySkullsUp;
+    [SerializeField] private FlySkull[] _flySkullsDown;
     [SerializeField] private Transform[] _pointsOfFlyBones;
     [SerializeField] private BossBear _bossBear;
-    [SerializeField] private Spawner _spawnerOfAttacks;
     [SerializeField] private Transform[] _flyBonesStartPoints;
     private FlyBone[] _flyBones;
     private int _attackNumber;
     private bool _canAttack = true;
+    private bool _bossReveal = false; 
 
-    private Vector3 _positionToAttackCradle;
-    int _numberOfClawAttacks = 5;
 
     private void OnEnable()
     {
         _claw.PreparedToAttack += GetCradlePositionToAttackClaw;
+        _bossAttackActivator.BossAttackActivated += ActivateBossAtack;
+        _spine.Destroyed += BossHide;
     }
 
     private void OnDisable()
     {
         _claw.PreparedToAttack -= GetCradlePositionToAttackClaw;
+        _bossAttackActivator.BossAttackActivated -= ActivateBossAtack;
+        _spine.Destroyed -= BossHide;
     }
 
     private void Start()
@@ -42,13 +47,10 @@ public class BossBearBehavior : MonoBehaviour
    
     private void Update()
     {
-       // ResetFlyBone();
         if (_canAttack == true)
         {
-            BossRandonAttack();
+            BossRandomAttack();
         }
-      //  ClawAttack(_numberOfClawAttacks);
-        
     }
 
     private void ClawAttack()
@@ -63,20 +65,63 @@ public class BossBearBehavior : MonoBehaviour
         _claw.transform.position = _cradle.GetPosition();
     }
 
-    
-
-    private void BossRandonAttack()
+    private void BossRandomAttack()
     {
-        _attackNumber = Random.Range(0, 6);
-        if (_attackNumber == 0 || _attackNumber == 1 || _attackNumber == 2)
+        _attackNumber = Random.Range(0, 13);
+        switch (_attackNumber)
         {
-            BigSkullAttack();
+            case 0:
+                BigSkullAttack();
+                break;
+            case 1:
+                BigSkullAttack();
+                break;
+            case 2:
+                BigSkullAttack();
+                break;
+            case 3:
+                ClawAttack();
+                break;
+            case 4:
+                ClawAttack();
+                break;
+            case 5:
+                ClawAttack();
+                break;
+            case 6:
+                FlySkullRightAttack();
+                break;
+            case 7:
+                FlySkullLeftAttack();
+                break;
+            case 8:
+                FlySkullUpAttack();
+                break;
+            case 9:
+                FlySkullDownAttack();
+                break;
+            case 10:
+                BoneWhillAttackLeft();
+                break;
+            case 11:
+                BoneWhillAttackRight();
+                break;
+            case 12:
+                BoneWhillAttackUp();
+                break;
         }
-        if (_attackNumber == 3 || _attackNumber == 4 || _attackNumber == 5)
-        {
-            ClawAttack();
-        }
-       
+    }
+
+    private void ActivateBossAtack()
+    {
+        _bossReveal = true;
+    }
+
+    private void BossHide()
+    {
+        _bossReveal = false;
+        _canAttack = true;
+        _bossBear.gameObject.SetActive(false);
     }
 
     private void BigSkullAttack()
@@ -84,9 +129,8 @@ public class BossBearBehavior : MonoBehaviour
         _bigSkullAttacks[_attackNumber].gameObject.SetActive(true);
         _canAttack = false;
         _bigSkullAttacks[_attackNumber].Reveal();
-        WaitForAttackEnd();
+        WaitForAttackEnd(); 
     }
-
 
     private void WaitForAttackEnd()
     {
@@ -96,12 +140,31 @@ public class BossBearBehavior : MonoBehaviour
     IEnumerator WaitForSkullTimeAttack()
     {
         yield return new WaitForSeconds(4);
-        _canAttack = true;
+        BossReveal();
+        if (_bossReveal == false)
+        {
+            _canAttack = true;
+        }
     }
+
+    IEnumerator WaitForFlySkullTimeAttack()
+    {
+        yield return new WaitForSeconds(6);
+        BossReveal();
+        if (_bossReveal == false)
+        {
+            _canAttack = true;
+        }
+    }
+
     IEnumerator WaitForClawTimeAttack()
     {
         yield return new WaitForSeconds(2);
-        _canAttack = true;
+        BossReveal();
+        if (_bossReveal == false)
+        {
+            _canAttack = true;
+        }
     }
 
     private void ResetFlyBone()
@@ -117,47 +180,90 @@ public class BossBearBehavior : MonoBehaviour
                 }
             }
         }
-           
     }
     
     private void FlySkullRightAttack()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _flySkullsRight.Length; i++)
+        {
+            _flySkullsRight[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForFlySkullTimeAttack());
     }
+
     private void FlySkullLeftAttack()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _flySkullsLeft.Length; i++)
+        {
+            _flySkullsLeft[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForFlySkullTimeAttack());
     }
 
     private void FlySkullUpAttack()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _flySkullsUp.Length; i++)
+        {
+            _flySkullsUp[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForFlySkullTimeAttack());
     }
 
     private void FlySkullDownAttack()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _flySkullsDown.Length; i++)
+        {
+            _flySkullsDown[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForFlySkullTimeAttack());
     }
 
     private void BossReveal()
     {
-
+        if (_bossReveal == true)
+        {
+           _bossBear.gameObject.SetActive(true);
+            StartCoroutine(WaitToDropSpine());
+        } 
     }
+
+    IEnumerator WaitToDropSpine()
+    {
+        yield return new WaitForSeconds(3);
+        _spine.gameObject.SetActive(true);
+    }
+
     private void BoneWhillAttackLeft()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _boneWhillsLeft.Length; i++)
+        {
+            _boneWhillsLeft[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForSkullTimeAttack());
     }
+
     private void BoneWhillAttackRight()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _boneWhillsRight.Length; i++)
+        {
+            _boneWhillsRight[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForSkullTimeAttack());
     }
-    private void BoneWhillAttackDown()
-    {
-
-    }
-
+ 
     private void BoneWhillAttackUp()
     {
-
+        _canAttack = false;
+        for (int i = 0; i < _boneWhillsUp.Length; i++)
+        {
+            _boneWhillsUp[i].gameObject.SetActive(true);
+        }
+        StartCoroutine(WaitForSkullTimeAttack());
     }
 }

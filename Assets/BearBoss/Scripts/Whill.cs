@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class Whill : MonoBehaviour
 {
+    public void Reset()
+    {
+        gameObject.SetActive(false);
+    }
 }

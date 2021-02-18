@@ -9,8 +9,6 @@ public class BigSkull : MonoBehaviour
 
     private Animator _animator;
 
-
-
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -24,10 +22,5 @@ public class BigSkull : MonoBehaviour
     public void Reset()
     {
         gameObject.SetActive(false);
-    }
-
-    public void AttackEnd()
-    { 
-    
     }
 }
