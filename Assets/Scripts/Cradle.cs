@@ -13,13 +13,19 @@ public class Cradle : MonoBehaviour
     public event UnityAction DamagedByFlySkull;
     public event UnityAction DamagedByFlyBone;
 
-
+    private Rigidbody2D _rigidbody2d;
     private Vector3 _position;
+
+    private void Start()
+    {
+        _rigidbody2d = GetComponent<Rigidbody2D>();
+    }
 
     public void EndGameTrigger()
     {
         CradleDestroyed?.Invoke();
     }
+
 
     public Vector3 GetPosition()
     {
