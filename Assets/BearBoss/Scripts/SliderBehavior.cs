@@ -12,20 +12,19 @@ public class SliderBehavior : MonoBehaviour
 
     [SerializeField] private Slider _amountControllerFear;
     [SerializeField] private Slider _amountControllerNighmare;
-    [SerializeField] private NightmareBearIcon _nightmareBearIcon;
     [SerializeField] private Animator _nightmareBearIconAnimator;
     [SerializeField] private Cradle _cradle;
-    [SerializeField] private ButtonSwing _buttonSwing;
+    [SerializeField] private Button _buttonSwing;
     [SerializeField] private Animator _crandleAnimator;
-    [SerializeField] private Collider2D _nightmareBearIconCollider;
-    [SerializeField] private Collider2D _cradleCollider;
-    [SerializeField] private Collider2D _buttonSwingCollider;
+    [SerializeField] private Button _nightmareBearIcon;
     [SerializeField] private Spine _spine;
     private float _duration = 1f;
     private float _stressLevelAfterVictory;
 
     private void OnEnable()
     {
+        _nightmareBearIcon.onClick.AddListener(ReduceNightmareBossLevel);
+        _buttonSwing.onClick.AddListener(ReduceFearBySwing);
         _spine.TouchedToBossIcon += IncreaseNightmareBySpineTouch;
         _cradle.DamagedByClaw += IncreaseFearByClawAttack;
         _cradle.DamagedByWhill += IncreaseFearByWhillAttack;
@@ -37,6 +36,8 @@ public class SliderBehavior : MonoBehaviour
 
     private void OnDisable()
     {
+        _nightmareBearIcon.onClick.RemoveListener(ReduceNightmareBossLevel);
+        _buttonSwing.onClick.RemoveListener(ReduceFearBySwing);
         _spine.TouchedToBossIcon -= IncreaseNightmareBySpineTouch;
         _cradle.DamagedByClaw -= IncreaseFearByClawAttack;
         _cradle.DamagedByWhill -= IncreaseFearByWhillAttack;
@@ -97,12 +98,8 @@ public class SliderBehavior : MonoBehaviour
 
     public void ReduceFearBySwing()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1000)), Vector2.zero);
-        if (Input.GetMouseButton(0) && hit.collider == _buttonSwingCollider)
-        {
             _crandleAnimator.SetTrigger("Swing");
             StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value - 0.5f));
-        }
     }
 
     public void IncreaseNightmareLevelWithTime()
@@ -142,21 +139,13 @@ public class SliderBehavior : MonoBehaviour
     private void Update()
     {
       IncreaseFearWithTime();
-      ReduceNightmareBossLevel();
-      ReduceFearBySwing();
       IncreaseNightmareLevelWithTime();
     }
 
     private void ReduceNightmareBossLevel()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1000)), Vector2.zero);
-        if (Input.GetMouseButton(0) && hit.collider == _nightmareBearIconCollider)
-        {
-            _nightmareBearIconAnimator.SetTrigger("Strike");
             StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - 1));
             CheckNightMareLevelToCallBoss();
-        }
-        
     }
 
     private void CheckNightMareLevelToCallBoss()

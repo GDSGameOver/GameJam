@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StayInside : MonoBehaviour {
 
-	// Update is called once per frame
+
 	void Update () {
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -8.3f, 8.3f),
             Mathf.Clamp(transform.position.y, -2.48f, 4.7f), transform.position.z);

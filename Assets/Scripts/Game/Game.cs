@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] GameOverScreen _gameOverScreen;
+    [SerializeField] GameOverMenu _gameOverScreen;
     [SerializeField] GameplayComponents _gameplayComponents;
     [SerializeField] Cradle _cradle;
     [SerializeField] MainMenu _mainMenu;
@@ -24,8 +24,6 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
-
-        _mainMenu.PlayButtonPressed += StartGame;
         _cradle.CradleDestroyed += OpenGameOverScreen;
         _victoryMenu.TryAgainButtonPressed += StartGame;
         _timer.WinConditionCompleted += OpenVictoryMenu;
@@ -33,7 +31,6 @@ public class Game : MonoBehaviour
 
     private void OnDisable()
     {
-        _mainMenu.PlayButtonPressed -= StartGame;
         _cradle.CradleDestroyed -= OpenGameOverScreen;
         _victoryMenu.TryAgainButtonPressed -= StartGame;
         _timer.WinConditionCompleted -= OpenVictoryMenu;
