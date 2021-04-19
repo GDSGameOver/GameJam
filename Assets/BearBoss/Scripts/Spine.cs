@@ -11,6 +11,7 @@ public class Spine : MonoBehaviour
     [SerializeField] private Transform _pointToMove;
     [SerializeField] private float _speed;
     [SerializeField] private int _numberOfHits;
+    [SerializeField] private Transform _startPoint;
     private Animator _animator;
     private Collider2D _collider;
 
@@ -27,6 +28,8 @@ public class Spine : MonoBehaviour
         if (_numberOfHits>15)
         {
             _animator.SetTrigger("Death");
+            _numberOfHits = 0;
+            transform.position = _startPoint.position;
         }
         if (Input.GetMouseButton(0) && hit.collider == _collider)
         {

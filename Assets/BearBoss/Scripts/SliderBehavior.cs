@@ -9,6 +9,7 @@ public class SliderBehavior : MonoBehaviour
     public event UnityAction NightMareLevelWentdownLess75;
     public event UnityAction NightMareLevelWentdownLess50;
     public event UnityAction NightMareLevelWentdownLess25;
+    public event UnityAction BossDeath;
 
     [SerializeField] private Slider _amountControllerFear;
     [SerializeField] private Slider _amountControllerNighmare;
@@ -100,6 +101,10 @@ public class SliderBehavior : MonoBehaviour
     {
             _crandleAnimator.SetTrigger("Swing");
             StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value - 0.5f));
+        if (_amountControllerNighmare.value <= 0)
+        {
+            BossDeath?.Invoke();
+        }
     }
 
     public void IncreaseNightmareLevelWithTime()
@@ -161,6 +166,14 @@ public class SliderBehavior : MonoBehaviour
         if (_amountControllerNighmare.value < 25)
         {
             NightMareLevelWentdownLess25?.Invoke();
+        }
+    }
+
+    private void BossDeathTrigger()
+    {
+        if (_amountControllerNighmare.value <= 0)
+        {
+            BossDeath?.Invoke();
         }
     }
 }

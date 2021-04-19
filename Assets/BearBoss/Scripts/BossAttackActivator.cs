@@ -16,16 +16,32 @@ public class BossAttackActivator : MonoBehaviour
     private void OnEnable()
     {
         _sliderBehavior.NightMareLevelWentdownLess75 += ActivateBossThenNightMareLess75;
+        _sliderBehavior.NightMareLevelWentdownLess75 += ActivateBossThenNightMareLess50;
+        _sliderBehavior.NightMareLevelWentdownLess75 += ActivateBossThenNightMareLess25;
     }
 
     private void OnDisable()
     {
         _sliderBehavior.NightMareLevelWentdownLess75 -= ActivateBossThenNightMareLess75;
+        _sliderBehavior.NightMareLevelWentdownLess75 -= ActivateBossThenNightMareLess50;
+        _sliderBehavior.NightMareLevelWentdownLess75 -= ActivateBossThenNightMareLess25;
     }
 
     private void ActivateBossThenNightMareLess75()
     {
     Debug.Log("Уровень меньше 75");
     BossAttackActivated?.Invoke();
+    }
+
+    private void ActivateBossThenNightMareLess50()
+    {
+        Debug.Log("Уровень меньше 50");
+        BossAttackActivated?.Invoke();
+    }
+
+    private void ActivateBossThenNightMareLess25()
+    {
+        Debug.Log("Уровень меньше 25");
+        BossAttackActivated?.Invoke();
     }
 }

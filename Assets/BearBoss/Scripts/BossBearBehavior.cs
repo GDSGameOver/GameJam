@@ -8,6 +8,7 @@ public class BossBearBehavior : MonoBehaviour
     [SerializeField] private Cradle _cradle;
     [SerializeField] private Claw _claw;
     [SerializeField] private Spine _spine;
+    [SerializeField] private BossDeath _bossDeath;
     [SerializeField] private BigSkull[] _bigSkullAttacks;
     [SerializeField] private Whill[] _boneWhillsRight;
     [SerializeField] private Whill[] _boneWhillsLeft;
@@ -231,6 +232,16 @@ public class BossBearBehavior : MonoBehaviour
         } 
     }
 
+    private void BossDeath()
+    {
+        if (_bossReveal == true)
+        {
+            _bossReveal = false;
+            _bossBear.gameObject.SetActive(true);
+            
+        }
+    }
+
     IEnumerator WaitToDropSpine()
     {
         yield return new WaitForSeconds(3);
@@ -265,5 +276,12 @@ public class BossBearBehavior : MonoBehaviour
             _boneWhillsUp[i].gameObject.SetActive(true);
         }
         StartCoroutine(WaitForSkullTimeAttack());
+    }
+
+    private void BossDie()
+    {
+        _cradle.gameObject.SetActive(false);
+        _bossBear.gameObject.SetActive(false);
+
     }
 }
