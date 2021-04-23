@@ -143,7 +143,7 @@ public class SliderBehavior : MonoBehaviour
 
     private void Update()
     {
-      IncreaseFearWithTime();
+     // IncreaseFearWithTime();
       IncreaseNightmareLevelWithTime();
     }
 
