@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Spine : MonoBehaviour
 {
@@ -12,43 +13,27 @@ public class Spine : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private int _numberOfHits;
     [SerializeField] private Transform _startPoint;
+    [SerializeField] private Button _buttonSpineDestroy;
     private Animator _animator;
-    private Collider2D _collider;
+
+    private void OnEnable()
+    {
+        _buttonSpineDestroy.onClick.AddListener(HitSpine);
+    }
+
+    private void OnDisable()
+    {
+        _buttonSpineDestroy.onClick.RemoveListener(HitSpine);
+    }
 
     void Start()
     {
-        _collider = GetComponent<Collider2D>();
         _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _pointToMove.position, _speed * Time.deltaTime);
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1000)), Vector2.zero);
-        if (_numberOfHits>15)
-        {
-            _animator.SetTrigger("Death");
-            _numberOfHits = 0;
-            transform.position = _startPoint.position;
-        }
-        if (Input.GetMouseButton(0) && hit.collider == _collider)
-        {
-            _animator.SetTrigger("Hit");
-        }
-    }
-
-    public void HitsCount()
-    {
-        _numberOfHits++;
-        Debug.Log(_numberOfHits);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out NightmareBearIcon nightmareBearIcon))
-        {
-            TouchedToBossIcon?.Invoke();
-        }
     }
 
     public void TriggerToHideBoss()
@@ -56,5 +41,20 @@ public class Spine : MonoBehaviour
         Destroyed?.Invoke();
         gameObject.SetActive(false);
     }
-    
+
+    private void HitSpine()
+    {
+        _numberOfHits++;
+        _animator.SetTrigger("Hit");
+        if (_numberOfHits > 15)
+        {
+            _animator.SetTrigger("Death");
+        }
+    }
+
+    private void ResetSpine()
+    {
+        _numberOfHits = 0;
+        transform.position = _startPoint.position;
+    }
 }

@@ -1221,7 +1221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &521750964
 Transform:
   m_ObjectHideFlags: 0
@@ -4589,9 +4589,10 @@ MonoBehaviour:
   CanvasGroup: {fileID: 1776163867}
   _playButton: {fileID: 1676369811}
   _rulesButton: {fileID: 1523272513}
+  _optionsButton: {fileID: 0}
   _exitButton: {fileID: 909273048}
   _rulesMenu: {fileID: 847071105}
-  _menuBackGround: {fileID: 681700752}
+  _optionsMenu: {fileID: 0}
 --- !u!225 &1776163867
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5661,7 +5662,7 @@ PrefabInstance:
     - target: {fileID: 4038458417595657676, guid: 10620ce5a5168c448b17642f9c0ad61e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4038458417595657681, guid: 10620ce5a5168c448b17642f9c0ad61e,
         type: 3}

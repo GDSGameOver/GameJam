@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BossBearBehavior : MonoBehaviour
 {
+    public event UnityAction BossDied;
+
     [SerializeField] private BossAttackActivator _bossAttackActivator;
     [SerializeField] private Cradle _cradle;
     [SerializeField] private Claw _claw;
@@ -20,6 +23,7 @@ public class BossBearBehavior : MonoBehaviour
     [SerializeField] private Transform[] _pointsOfFlyBones;
     [SerializeField] private BossBear _bossBear;
     [SerializeField] private Transform[] _flyBonesStartPoints;
+    [SerializeField] private SliderBehavior _sliderBehavior;
     private FlyBone[] _flyBones;
     private int _attackNumber;
     private bool _canAttack = true;
@@ -28,6 +32,7 @@ public class BossBearBehavior : MonoBehaviour
 
     private void OnEnable()
     {
+        _sliderBehavior.BossNighmareLevelEmpty += BossDie;
         _claw.PreparedToAttack += GetCradlePositionToAttackClaw;
         _bossAttackActivator.BossAttackActivated += ActivateBossAtack;
         _spine.Destroyed += BossHide;
@@ -35,6 +40,7 @@ public class BossBearBehavior : MonoBehaviour
 
     private void OnDisable()
     {
+        _sliderBehavior.BossNighmareLevelEmpty -= BossDie;
         _claw.PreparedToAttack -= GetCradlePositionToAttackClaw;
         _bossAttackActivator.BossAttackActivated -= ActivateBossAtack;
         _spine.Destroyed -= BossHide;
@@ -238,7 +244,6 @@ public class BossBearBehavior : MonoBehaviour
         {
             _bossReveal = false;
             _bossBear.gameObject.SetActive(true);
-            
         }
     }
 
@@ -282,6 +287,64 @@ public class BossBearBehavior : MonoBehaviour
     {
         _cradle.gameObject.SetActive(false);
         _bossBear.gameObject.SetActive(false);
-
+        _claw.gameObject.SetActive(false);
+        _spine.gameObject.SetActive(false);
+        for (int i = 0; i < _bigSkullAttacks.Length; i++)
+        {
+            _bigSkullAttacks[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _bigSkullAttacks.Length; i++)
+        {
+            _bigSkullAttacks[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _boneWhillsRight.Length; i++)
+        {
+            _boneWhillsRight[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _boneWhillsLeft.Length; i++)
+        {
+            _boneWhillsLeft[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _boneWhillsUp.Length; i++)
+        {
+            _boneWhillsUp[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _boneWhillsUp.Length; i++)
+        {
+            _boneWhillsUp[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _boneWhillsUp.Length; i++)
+        {
+            _boneWhillsUp[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _boneWhillsUp.Length; i++)
+        {
+            _boneWhillsUp[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _flySkullsRight.Length; i++)
+        {
+            _flySkullsRight[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _flySkullsRight.Length; i++)
+        {
+            _flySkullsRight[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _flySkullsLeft.Length; i++)
+        {
+            _flySkullsLeft[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _flySkullsUp.Length; i++)
+        {
+            _flySkullsUp[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _flySkullsDown.Length; i++)
+        {
+            _flySkullsDown[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < _flyBones.Length; i++)
+        {
+            _flyBones[i].gameObject.SetActive(false);
+        }
+        BossDied?.Invoke();
     }
 }

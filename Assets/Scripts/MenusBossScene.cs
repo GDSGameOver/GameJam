@@ -27,7 +27,5 @@ public class MenusBossScene : MonoBehaviour
         _backToGameFromPause.onClick.RemoveListener(_pauseMenu.Close);
         _options.onClick.RemoveListener(_optionsMenu.Open);
         _backToGameFromOptions.onClick.RemoveListener(_optionsMenu.Close);
-    }
-
-    
+    }   
 }

@@ -9,7 +9,7 @@ public class SliderBehavior : MonoBehaviour
     public event UnityAction NightMareLevelWentdownLess75;
     public event UnityAction NightMareLevelWentdownLess50;
     public event UnityAction NightMareLevelWentdownLess25;
-    public event UnityAction BossDeath;
+    public event UnityAction BossNighmareLevelEmpty;
 
     [SerializeField] private Slider _amountControllerFear;
     [SerializeField] private Slider _amountControllerNighmare;
@@ -103,7 +103,7 @@ public class SliderBehavior : MonoBehaviour
             StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value - 0.5f));
         if (_amountControllerNighmare.value <= 0)
         {
-            BossDeath?.Invoke();
+            BossNighmareLevelEmpty?.Invoke();
         }
     }
 
@@ -121,6 +121,7 @@ public class SliderBehavior : MonoBehaviour
             float nextValue = Mathf.Lerp(currentSliderValue, newSliderFillValue, elapsedTime / _duration);
             _amountControllerNighmare.value = nextValue;
             _stressLevelAfterVictory = _amountControllerNighmare.value;
+            Debug.Log(_amountControllerNighmare.value);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -143,13 +144,14 @@ public class SliderBehavior : MonoBehaviour
 
     private void Update()
     {
-     // IncreaseFearWithTime();
-      IncreaseNightmareLevelWithTime();
+      IncreaseFearWithTime();
+        // IncreaseNightmareLevelWithTime();
+        BossDeathTrigger();
     }
 
     private void ReduceNightmareBossLevel()
     {
-            StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - 1));
+            StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - 30));
             CheckNightMareLevelToCallBoss();
     }
 
@@ -173,7 +175,7 @@ public class SliderBehavior : MonoBehaviour
     {
         if (_amountControllerNighmare.value <= 0)
         {
-            BossDeath?.Invoke();
+            BossNighmareLevelEmpty?.Invoke();
         }
     }
 }
