@@ -20,7 +20,21 @@ public class SliderBehavior : MonoBehaviour
     [SerializeField] private Button _nightmareBearIcon;
     [SerializeField] private Spine _spine;
     private float _duration = 1f;
-    private float _stressLevelAfterVictory;
+    private float _increaseFearValueByTime;
+    private float _increaseNightmareValueBySpine;
+    private float _increaseNightmareValueByTime;
+    private float _reduceFearBySwing;
+    private float _reduceNighmareByHit;
+    private float _flyBoneDamage;
+    private float _bigSkullDamage;
+    private float _flySkullDamage;
+    private float _bossDamage;
+    private float _clawDamage;
+    private float _whillDamage;
+    private bool _modeEasy;
+    private bool _modeNormal;
+    private bool _modeHard;
+
 
     private void OnEnable()
     {
@@ -48,49 +62,98 @@ public class SliderBehavior : MonoBehaviour
         _cradle.DamagedByFlyBone -= IncreaseFearByFlyBoneAttack;
     }
 
+    private void Start()
+    {
+
+     _modeEasy = PlayerPrefs.GetInt("Easy") == 1;
+     _modeNormal = PlayerPrefs.GetInt("Normal") == 1;
+     _modeHard = PlayerPrefs.GetInt("Hard") == 1;
+        
+        if (_modeEasy)
+        {
+            _flyBoneDamage = 5;
+            _clawDamage = 10;
+            _flySkullDamage = 20;
+            _whillDamage = 25;
+            _bigSkullDamage = 30;
+            _bossDamage = 10;
+
+            _increaseNightmareValueBySpine = 1;
+            _increaseNightmareValueByTime = 0;
+            _increaseFearValueByTime = 0;
+            _reduceFearBySwing = 20;
+            _reduceNighmareByHit = 3;
+        }
+        if (_modeNormal)
+        {
+            _flyBoneDamage = 5;
+            _clawDamage = 10;
+            _flySkullDamage = 20;
+            _whillDamage = 25;
+            _bigSkullDamage = 30;
+            _bossDamage = 10;
+
+            _increaseNightmareValueBySpine = 1;
+            _increaseNightmareValueByTime = 0;
+            _increaseFearValueByTime = .1f;
+            _reduceFearBySwing = 15;
+            _reduceNighmareByHit = 2;
+        }
+        if (_modeHard)
+        {
+            _flyBoneDamage = 5;
+            _clawDamage = 10;
+            _flySkullDamage = 20;
+            _whillDamage = 25;
+            _bigSkullDamage = 30;
+            _bossDamage = 10;
+
+            _increaseNightmareValueBySpine = 5;
+            _increaseNightmareValueByTime = .1f;
+            _increaseFearValueByTime = .1f;
+            _reduceFearBySwing = 10;
+            _reduceNighmareByHit = 1;
+        }
+    }
+
     private void IncreaseFearByFlyBoneAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 1));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + _flyBoneDamage));
     }
 
     private void IncreaseFearByClawAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + _clawDamage));
     }
 
     private void IncreaseFearByFlySkullAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 20));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + _flySkullDamage));
     }
 
     private void IncreaseNightmareBySpineTouch()
     {
-        StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value + 1));
+        StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value + _increaseNightmareValueBySpine));
     }
 
     private void IncreaseFearByWhillAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 20));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + _whillDamage));
     }
 
     private void IncreaseFearByBigSkullLeftAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 5));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + _bigSkullDamage));
     }
 
     private void IncreaseFearByBossAttack()
     {
-        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + 10));
-    }
-
-    public void IncreaseValueInSlider()
-    {
-        StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value + 10));
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value + _bossDamage));
     }
 
     public void IncreaseFearWithTime()
     {
-        _amountControllerFear.value += 1 * Time.deltaTime;
+        _amountControllerFear.value += _increaseFearValueByTime * Time.deltaTime;
         if (_amountControllerFear.value >= 100)
         {
             _crandleAnimator.SetTrigger("Death");
@@ -99,8 +162,8 @@ public class SliderBehavior : MonoBehaviour
 
     public void ReduceFearBySwing()
     {
-            _crandleAnimator.SetTrigger("Swing");
-            StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value - 0.5f));
+        _crandleAnimator.SetTrigger("Swing");
+        StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value - _reduceFearBySwing));
         if (_amountControllerNighmare.value <= 0)
         {
             BossNighmareLevelEmpty?.Invoke();
@@ -109,7 +172,7 @@ public class SliderBehavior : MonoBehaviour
 
     public void IncreaseNightmareLevelWithTime()
     {
-        _amountControllerNighmare.value += 0.1f * Time.deltaTime;
+        _amountControllerNighmare.value += _increaseNightmareValueByTime * Time.deltaTime;
     }
 
     private IEnumerator ChangeValueNightmareLevelBySegment(float newSliderFillValue)
@@ -120,7 +183,6 @@ public class SliderBehavior : MonoBehaviour
         {
             float nextValue = Mathf.Lerp(currentSliderValue, newSliderFillValue, elapsedTime / _duration);
             _amountControllerNighmare.value = nextValue;
-            _stressLevelAfterVictory = _amountControllerNighmare.value;
             Debug.Log(_amountControllerNighmare.value);
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -136,7 +198,6 @@ public class SliderBehavior : MonoBehaviour
         {
             float nextValue = Mathf.Lerp(currentSliderValue, newSliderFillValue, elapsedTime / _duration);
             _amountControllerFear.value = nextValue;
-            _stressLevelAfterVictory = _amountControllerFear.value;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -145,14 +206,14 @@ public class SliderBehavior : MonoBehaviour
     private void Update()
     {
       IncreaseFearWithTime();
-        // IncreaseNightmareLevelWithTime();
-        BossDeathTrigger();
+      IncreaseNightmareLevelWithTime();
+      BossDeathTrigger();
     }
 
     private void ReduceNightmareBossLevel()
     {
-            StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - 30));
-            CheckNightMareLevelToCallBoss();
+       StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - _reduceNighmareByHit));
+       CheckNightMareLevelToCallBoss();
     }
 
     private void CheckNightMareLevelToCallBoss()

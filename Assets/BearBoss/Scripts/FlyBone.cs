@@ -1,15 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlyBone : MonoBehaviour
 {
     [SerializeField] private Transform[] _flyPoints;
     [SerializeField] private Transform[] _startPoints;
     [SerializeField] private float _speed;
+    [SerializeField] private Button _hitButton; 
     private Transform _currentFlyPoint;
     private Collider2D _collider;
     private Animator _animator;
+
+    private void OnEnable()
+    {
+        _hitButton.onClick.AddListener(ResetFlybone);
+    }
+
+    private void OnDisable()
+    {
+        _hitButton.onClick.RemoveListener(ResetFlybone);
+    }
 
     void Start()
     {
@@ -22,12 +34,6 @@ public class FlyBone : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1000)), Vector2.zero);
-        if (Input.GetMouseButton(0) && hit.collider == _collider)
-        {
-            _animator.SetTrigger("Crush");
-            
-        }
         Fly();
         transform.position = Vector3.MoveTowards(transform.position, _currentFlyPoint.position, _speed * Time.deltaTime);
     }
@@ -47,6 +53,13 @@ public class FlyBone : MonoBehaviour
 
     public void ResetFlybone()
     {
+        _animator.SetTrigger("Crush");
+        StartCoroutine(WaitForBoneDestroy());
+    }
+
+    IEnumerator WaitForBoneDestroy()
+    {
+        yield return new WaitForSeconds(.5f);
         transform.position = _startPoints[Random.Range(0, _startPoints.Length)].position;
     }
 }

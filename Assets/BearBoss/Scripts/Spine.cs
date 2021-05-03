@@ -49,6 +49,7 @@ public class Spine : MonoBehaviour
         if (_numberOfHits > 15)
         {
             _animator.SetTrigger("Death");
+            ResetSpine();
         }
     }
 

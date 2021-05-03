@@ -9,7 +9,7 @@ public class MenusBossScene : MonoBehaviour
     [SerializeField] private Button _options;
     [SerializeField] private Button _backToGameFromPause;
     [SerializeField] private Button _backToGameFromOptions;
-    [SerializeField] private OptionsMenu _optionsMenu;
+    [SerializeField] private OptionsMenuInGame _optionsMenu;
     [SerializeField] private PauseMenu _pauseMenu;
 
 

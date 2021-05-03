@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsMenu : Menu
+public class OptionsMenuInGame : Menu
 {
     [SerializeField] private Toggle _controlJoystick;
     [SerializeField] private Toggle _controlFinger;
@@ -11,12 +11,16 @@ public class OptionsMenu : Menu
     [SerializeField] private Toggle _modeNormal;
     [SerializeField] private Toggle _modeHard;
     [SerializeField] private Button _mainMenuButton;
-    [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Image _background;
 
     private void Start()
     {
         CanvasGroup.blocksRaycasts = false;
+        _controlJoystick.isOn = PlayerPrefs.GetInt("JoystickControl")==1;
+        _controlFinger.isOn = PlayerPrefs.GetInt("FingerControl") == 1;
+        _modeEasy.isOn = PlayerPrefs.GetInt("Easy") == 1;
+        _modeNormal.isOn = PlayerPrefs.GetInt("Normal") == 1;
+        _modeHard.isOn = PlayerPrefs.GetInt("Hard") == 1;
     }
 
     private void OnEnable()
@@ -36,6 +40,7 @@ public class OptionsMenu : Menu
         _background.GetComponent<CanvasGroup>().alpha = 1;
         _mainMenuButton.interactable = true;
         Time.timeScale = 0;
+       
     }
 
     public override void Close()
@@ -55,7 +60,6 @@ public class OptionsMenu : Menu
 
     private void BackToMainMenu()
     {
-        _mainMenu.Open();
         Close();
     }
 }
