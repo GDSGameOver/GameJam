@@ -12,6 +12,7 @@ public class OptionsMenuInGame : Menu
     [SerializeField] private Toggle _modeHard;
     [SerializeField] private Button _mainMenuButton;
     [SerializeField] private Image _background;
+    [SerializeField] private GameObject _cradleMover;
 
     private void Start()
     {
@@ -21,6 +22,24 @@ public class OptionsMenuInGame : Menu
         _modeEasy.isOn = PlayerPrefs.GetInt("Easy") == 1;
         _modeNormal.isOn = PlayerPrefs.GetInt("Normal") == 1;
         _modeHard.isOn = PlayerPrefs.GetInt("Hard") == 1;
+
+        if (_controlJoystick.isOn)
+        {
+            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = false;
+            _cradleMover.GetComponent<PlayerMover>().enabled = true ;
+            
+        }
+        else
+        {
+            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = true;
+            _cradleMover.GetComponent<PlayerMover>().enabled = false;
+            
+        }
+        _controlFinger.enabled = false;
+        _controlJoystick.enabled = false;
+        _modeEasy.enabled = false;
+        _modeNormal.enabled = false;
+        _modeHard.enabled = false;
     }
 
     private void OnEnable()
@@ -56,6 +75,17 @@ public class OptionsMenuInGame : Menu
         PlayerPrefs.SetInt("Normal", _modeNormal.isOn ? 1 : 0);
         PlayerPrefs.SetInt("Hard", _modeHard.isOn ? 1 : 0);
         PlayerPrefs.Save();
+
+        if (_controlJoystick)
+        {
+            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = false;
+            _cradleMover.GetComponent<PlayerMover>().enabled = true;
+        }
+        else
+        {
+            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = true;
+            _cradleMover.GetComponent<PlayerMover>().enabled = false;
+        }
     }
 
     private void BackToMainMenu()

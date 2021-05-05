@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class TouchNonUIOBjects : MonoBehaviour
 {
@@ -11,7 +11,8 @@ public class TouchNonUIOBjects : MonoBehaviour
     [SerializeField] private Cradle _cradle;
     [SerializeField] private Spine _spine;
     [SerializeField] private Transform _startPoint;
-    
+    [SerializeField] private Button _iconBoss;
+
 
     float _deltaX, _deltaY, _offSetPositionX, _offSetPositionY;
     private Rigidbody2D _rigibody2D;
@@ -55,10 +56,12 @@ public class TouchNonUIOBjects : MonoBehaviour
                 case TouchPhase.Moved:
                     if (_controlCollider == Physics2D.OverlapPoint(touchPos) && _moveAllowed)
                         _rigibody2D.MovePosition(new Vector2(touchPos.x - _deltaX, touchPos.y - _deltaY));
+                    _iconBoss.enabled = false;
                     break;
 
                 case TouchPhase.Ended:
                     _moveAllowed = false;
+                    _iconBoss.enabled = true;
                     break;
             }
         }

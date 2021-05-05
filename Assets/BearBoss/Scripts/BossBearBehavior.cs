@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BossBearBehavior : MonoBehaviour
 {
-    public event UnityAction BossDied;
-
     [SerializeField] private BossAttackActivator _bossAttackActivator;
     [SerializeField] private Cradle _cradle;
     [SerializeField] private Claw _claw;
@@ -24,7 +21,7 @@ public class BossBearBehavior : MonoBehaviour
     [SerializeField] private BossBear _bossBear;
     [SerializeField] private Transform[] _flyBonesStartPoints;
     [SerializeField] private SliderBehavior _sliderBehavior;
-    private FlyBone[] _flyBones;
+    [SerializeField] private FlyBone[] _flyBones;
     private int _attackNumber;
     private bool _canAttack = true;
     private bool _bossReveal = false; 
@@ -48,10 +45,18 @@ public class BossBearBehavior : MonoBehaviour
 
     private void Start()
     {
-        _flyBones = FindObjectsOfType<FlyBone>();
+        for (int i = 0; i < _flyBones.Length; i++)
+        {
+            _flyBones[i].gameObject.SetActive(true);
+        }
+        _claw.gameObject.SetActive(true);
+        for (int i = 0; i < _bigSkullAttacks.Length; i++)
+        {
+            _bigSkullAttacks[i].gameObject.SetActive(true);
+        }
+
     }
 
-   
     private void Update()
     {
         if (_canAttack == true)
@@ -174,21 +179,6 @@ public class BossBearBehavior : MonoBehaviour
         }
     }
 
-    private void ResetFlyBone()
-    {
-        if (_flyBones.Length<4)
-        {
-            foreach (var flyBone in _flyBones)
-            {
-                if (flyBone.enabled == false)
-                {
-                    flyBone.transform.position = _flyBonesStartPoints[Random.Range(0, _flyBonesStartPoints.Length)].position;
-                    flyBone.enabled = true;
-                }
-            }
-        }
-    }
-    
     private void FlySkullRightAttack()
     {
         _canAttack = false;
@@ -345,6 +335,6 @@ public class BossBearBehavior : MonoBehaviour
         {
             _flyBones[i].gameObject.SetActive(false);
         }
-        BossDied?.Invoke();
+        _bossDeath.gameObject.SetActive(true);
     }
 }
