@@ -39,6 +39,8 @@ public class Spine : MonoBehaviour
     public void TriggerToHideBoss()
     {
         Destroyed?.Invoke();
+        _numberOfHits = 0;
+        transform.position = _startPoint.position;
         gameObject.SetActive(false);
     }
 
@@ -49,13 +51,17 @@ public class Spine : MonoBehaviour
         if (_numberOfHits > 15)
         {
             _animator.SetTrigger("Death");
-            ResetSpine();
         }
     }
 
-    private void ResetSpine()
+   
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        _numberOfHits = 0;
-        transform.position = _startPoint.position;
+        if (collision.gameObject.TryGetComponent(out BossIcon bossIcon))
+        {
+            TouchedToBossIcon?.Invoke();
+        }
     }
+    
 }

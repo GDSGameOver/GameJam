@@ -13,13 +13,9 @@ public class Cradle : MonoBehaviour
     public event UnityAction DamagedByFlySkull;
     public event UnityAction DamagedByFlyBone;
 
-    private Rigidbody2D _rigidbody2d;
+    [SerializeField] private AudioSource[] _babyCryes;
     private Vector3 _position;
 
-    private void Start()
-    {
-        _rigidbody2d = GetComponent<Rigidbody2D>();
-    }
 
     public void EndGameTrigger()
     {
@@ -38,26 +34,46 @@ public class Cradle : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Claw claw))
         {
             DamagedByClaw?.Invoke();
+            Cry();
         }
         if (collision.gameObject.TryGetComponent(out Whill whill))
         {
             DamagedByWhill?.Invoke();
+            Cry();
         }
         if (collision.gameObject.TryGetComponent(out BigSkull bigSkull))
         {
             DamagedByBigSkull?.Invoke();
+            Cry();
         }
         if (collision.gameObject.TryGetComponent(out BossBody bossBody))
         {
             DamagedByBoss?.Invoke();
+            Cry();
         }
         if (collision.gameObject.TryGetComponent(out FlySkull flySkull))
         {
             DamagedByFlySkull?.Invoke();
+            Cry();
         }
         if (collision.gameObject.TryGetComponent(out FlyBone flyBone))
         {
             DamagedByFlyBone?.Invoke();
+            Cry();
+        }
+    }
+
+    private void Cry()
+    {
+        _babyCryes[Random.Range(0, 3)].Play();
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out BossBody bossBody))
+        {
+            DamagedByBoss?.Invoke();
+            Cry();
         }
     }
 }

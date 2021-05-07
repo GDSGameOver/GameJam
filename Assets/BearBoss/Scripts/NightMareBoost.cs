@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class NightMareBoost : MonoBehaviour
 {
+    [SerializeField] private AudioSource _nighmareBoostSound;
     private Animator _animator;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -13,6 +15,7 @@ public class NightMareBoost : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Spine spine))
         {
+            _nighmareBoostSound.Play();
             _animator.SetTrigger("BoostReveal");
         }
     }
@@ -20,6 +23,7 @@ public class NightMareBoost : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Spine spine))
         {
+            _nighmareBoostSound.Stop();
             _animator.SetTrigger("BoostOff");
         }
     }

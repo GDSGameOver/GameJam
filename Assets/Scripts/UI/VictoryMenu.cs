@@ -38,6 +38,7 @@ public class VictoryMenu : Menu
 
     private void StartGame()
     {
+        AudioSource.Play();
         TryAgainButtonPressed?.Invoke();
         Close();
     }
@@ -50,6 +51,7 @@ public class VictoryMenu : Menu
 
     private void ExitGame()
     {
+        AudioSource.Play();
         Application.Quit();
     }
 
@@ -72,4 +74,6 @@ public class VictoryMenu : Menu
         _playButton.interactable = false;
         _exitButton.interactable = false;
     }
+
+    
 }

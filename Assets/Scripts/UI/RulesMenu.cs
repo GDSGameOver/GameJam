@@ -42,6 +42,7 @@ public class RulesMenu : Menu
 
     private void BackToMainMenu()
     {
+        AudioSource.Play();
         _mainMenu.Open();
         Close();
     }

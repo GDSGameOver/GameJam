@@ -19,6 +19,8 @@ public class SliderBehavior : MonoBehaviour
     [SerializeField] private Animator _crandleAnimator;
     [SerializeField] private Button _nightmareBearIcon;
     [SerializeField] private Spine _spine;
+    [SerializeField] private AudioSource[] _bossPainSound;
+    [SerializeField] private AudioSource _cradleCrouchSound;
     private float _duration = 1f;
     private float _increaseFearValueByTime;
     private float _increaseNightmareValueBySpine;
@@ -72,47 +74,47 @@ public class SliderBehavior : MonoBehaviour
         if (_modeEasy)
         {
             _flyBoneDamage = 5;
-            _clawDamage = 10;
-            _flySkullDamage = 20;
-            _whillDamage = 25;
-            _bigSkullDamage = 30;
-            _bossDamage = 10;
+            _clawDamage = 5;
+            _flySkullDamage = 10;
+            _whillDamage = 15;
+            _bigSkullDamage = 20;
+            _bossDamage = 30;
 
             _increaseNightmareValueBySpine = 1;
             _increaseNightmareValueByTime = 0;
             _increaseFearValueByTime = 0;
-            _reduceFearBySwing = 20;
+            _reduceFearBySwing = 25;
             _reduceNighmareByHit = 3;
         }
         if (_modeNormal)
         {
-            _flyBoneDamage = 5;
+            _flyBoneDamage = 7;
             _clawDamage = 10;
-            _flySkullDamage = 20;
-            _whillDamage = 25;
-            _bigSkullDamage = 30;
-            _bossDamage = 10;
+            _flySkullDamage = 15;
+            _whillDamage = 20;
+            _bigSkullDamage = 25;
+            _bossDamage = 35;
 
-            _increaseNightmareValueBySpine = 1;
+            _increaseNightmareValueBySpine = 2;
             _increaseNightmareValueByTime = 0;
-            _increaseFearValueByTime = .1f;
-            _reduceFearBySwing = 15;
-            _reduceNighmareByHit = 2;
+            _increaseFearValueByTime = 1;
+            _reduceFearBySwing = 20;
+            _reduceNighmareByHit = 3;
         }
         if (_modeHard)
         {
-            _flyBoneDamage = 5;
+            _flyBoneDamage = 10;
             _clawDamage = 10;
             _flySkullDamage = 20;
             _whillDamage = 25;
             _bigSkullDamage = 30;
-            _bossDamage = 10;
+            _bossDamage = 40;
 
-            _increaseNightmareValueBySpine = 5;
-            _increaseNightmareValueByTime = .1f;
-            _increaseFearValueByTime = .1f;
-            _reduceFearBySwing = 10;
-            _reduceNighmareByHit = 1;
+            _increaseNightmareValueBySpine = 3;
+            _increaseNightmareValueByTime = 2f;
+            _increaseFearValueByTime = 2f;
+            _reduceFearBySwing = 15;
+            _reduceNighmareByHit = 3;
         }
     }
 
@@ -163,6 +165,7 @@ public class SliderBehavior : MonoBehaviour
     public void ReduceFearBySwing()
     {
         _crandleAnimator.SetTrigger("Swing");
+        _cradleCrouchSound.Play();
         StartCoroutine(ChangeValueFearBySegment(_amountControllerFear.value - _reduceFearBySwing));
         if (_amountControllerNighmare.value <= 0)
         {
@@ -212,6 +215,7 @@ public class SliderBehavior : MonoBehaviour
 
     private void ReduceNightmareBossLevel()
     {
+       _bossPainSound[Random.Range(0, 1)].Play();
        StartCoroutine(ChangeValueNightmareLevelBySegment(_amountControllerNighmare.value - _reduceNighmareByHit));
        CheckNightMareLevelToCallBoss();
     }
@@ -222,10 +226,10 @@ public class SliderBehavior : MonoBehaviour
         {
             NightMareLevelWentdownLess75?.Invoke();
         }
-        if (_amountControllerNighmare.value <= 50 && _amountControllerNighmare.value >= 25)
-        {
-            NightMareLevelWentdownLess50?.Invoke();
-        }
+      //  if (_amountControllerNighmare.value <= 50 && _amountControllerNighmare.value >= 25)
+      //  {
+      //      NightMareLevelWentdownLess50?.Invoke();
+       // }
         if (_amountControllerNighmare.value < 25)
         {
             NightMareLevelWentdownLess25?.Invoke();

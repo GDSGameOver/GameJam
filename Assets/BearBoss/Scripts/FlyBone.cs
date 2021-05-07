@@ -7,6 +7,7 @@ public class FlyBone : MonoBehaviour
 {
     [SerializeField] private Transform[] _flyPoints;
     [SerializeField] private Transform[] _startPoints;
+    [SerializeField] private AudioSource _crushSound;
     [SerializeField] private float _speed;
     [SerializeField] private Button _hitButton; 
     private Transform _currentFlyPoint;
@@ -24,7 +25,6 @@ public class FlyBone : MonoBehaviour
 
     void Start()
     {
-        _speed = 5;
         _animator = GetComponent<Animator>();
         _currentFlyPoint = _startPoints[Random.Range(0, _startPoints.Length)];
         transform.position = Vector3.MoveTowards(transform.position, _currentFlyPoint.position, _speed * Time.deltaTime);
@@ -51,13 +51,19 @@ public class FlyBone : MonoBehaviour
 
     public void ResetFlybone()
     {
+        _crushSound.Play();
         _animator.SetTrigger("Crush"); 
     }
 
     private void ReturnToStartPosition()
     {
-        gameObject.SetActive(false);
+        StartCoroutine(WaitToActivate());
+    }
+    IEnumerator WaitToActivate()
+    {
         gameObject.transform.position = _startPoints[Random.Range(0, _startPoints.Length)].position;
-        gameObject.SetActive(true);
+        _speed = 0;
+        yield return new WaitForSeconds(5);
+        _speed = 2.5f;
     }
 }

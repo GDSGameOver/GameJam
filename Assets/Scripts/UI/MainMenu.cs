@@ -33,23 +33,27 @@ public class MainMenu : Menu
 
     public void StartGame()
     {
+        AudioSource.Play();
         SceneManager.LoadScene("BearBoss");
     }
 
     private void OpenRulesMenu()
     {
+        AudioSource.Play();
         Close();
         _rulesMenu.Open();
     }
 
     private void OpenOptionsMenu()
     {
-        Close();
+
+        AudioSource.Play();
         _optionsMenu.Open();
     }
 
     private void ExitGame()
     {
+        AudioSource.Play();
         Application.Quit();
     }
 
@@ -72,4 +76,6 @@ public class MainMenu : Menu
         _playButton.interactable = false;
         _exitButton.interactable = false;
     }
+
+    
 }

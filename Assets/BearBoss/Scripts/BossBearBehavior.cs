@@ -22,9 +22,14 @@ public class BossBearBehavior : MonoBehaviour
     [SerializeField] private Transform[] _flyBonesStartPoints;
     [SerializeField] private SliderBehavior _sliderBehavior;
     [SerializeField] private FlyBone[] _flyBones;
+    [SerializeField] private Animator _bossBearAnimator;
+    [SerializeField] private AudioSource _boneWheelAttackSound;
+    [SerializeField] private AudioSource _skullsAttackSound;
+    [SerializeField] private AudioSource _bigSkullAttackSound;
+
     private int _attackNumber;
     private bool _canAttack = true;
-    private bool _bossReveal = false; 
+    private bool _bossReveal = false;
 
 
     private void OnEnable()
@@ -131,9 +136,9 @@ public class BossBearBehavior : MonoBehaviour
 
     private void BossHide()
     {
+        _bossBearAnimator.SetTrigger("Hide");
         _bossReveal = false;
         _canAttack = true;
-        _bossBear.gameObject.SetActive(false);
     }
 
     private void BigSkullAttack()
@@ -141,6 +146,7 @@ public class BossBearBehavior : MonoBehaviour
         _bigSkullAttacks[_attackNumber].gameObject.SetActive(true);
         _canAttack = false;
         _bigSkullAttacks[_attackNumber].Reveal();
+        _bigSkullAttackSound.Play();
         WaitForAttackEnd(); 
     }
 
@@ -151,7 +157,7 @@ public class BossBearBehavior : MonoBehaviour
 
     IEnumerator WaitForSkullTimeAttack()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         BossReveal();
         if (_bossReveal == false)
         {
@@ -161,7 +167,7 @@ public class BossBearBehavior : MonoBehaviour
 
     IEnumerator WaitForFlySkullTimeAttack()
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(3);
         BossReveal();
         if (_bossReveal == false)
         {
@@ -185,6 +191,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _flySkullsRight.Length; i++)
         {
             _flySkullsRight[i].gameObject.SetActive(true);
+            _skullsAttackSound.Play();
         }
         StartCoroutine(WaitForFlySkullTimeAttack());
     }
@@ -195,6 +202,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _flySkullsLeft.Length; i++)
         {
             _flySkullsLeft[i].gameObject.SetActive(true);
+            _skullsAttackSound.Play();
         }
         StartCoroutine(WaitForFlySkullTimeAttack());
     }
@@ -205,6 +213,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _flySkullsUp.Length; i++)
         {
             _flySkullsUp[i].gameObject.SetActive(true);
+            _skullsAttackSound.Play();
         }
         StartCoroutine(WaitForFlySkullTimeAttack());
     }
@@ -215,6 +224,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _flySkullsDown.Length; i++)
         {
             _flySkullsDown[i].gameObject.SetActive(true);
+            _skullsAttackSound.Play();
         }
         StartCoroutine(WaitForFlySkullTimeAttack());
     }
@@ -249,6 +259,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _boneWhillsLeft.Length; i++)
         {
             _boneWhillsLeft[i].gameObject.SetActive(true);
+            _boneWheelAttackSound.Play();
         }
         StartCoroutine(WaitForSkullTimeAttack());
     }
@@ -259,6 +270,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _boneWhillsRight.Length; i++)
         {
             _boneWhillsRight[i].gameObject.SetActive(true);
+            _boneWheelAttackSound.Play();
         }
         StartCoroutine(WaitForSkullTimeAttack());
     }
@@ -269,6 +281,7 @@ public class BossBearBehavior : MonoBehaviour
         for (int i = 0; i < _boneWhillsUp.Length; i++)
         {
             _boneWhillsUp[i].gameObject.SetActive(true);
+            _boneWheelAttackSound.Play();
         }
         StartCoroutine(WaitForSkullTimeAttack());
     }

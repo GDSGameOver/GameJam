@@ -90,6 +90,9 @@ public class OptionsMenuInGame : Menu
 
     private void BackToMainMenu()
     {
+        AudioSource.Play();
         Close();
     }
+
+  
 }

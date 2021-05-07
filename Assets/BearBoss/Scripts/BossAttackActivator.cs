@@ -9,9 +9,7 @@ public class BossAttackActivator : MonoBehaviour
 
 
     [SerializeField] SliderBehavior _sliderBehavior;
-    private bool _bossAttackThenNighmareLevelLess75 = false;
-    private bool _bossAttackThenNighmareLevelLess50 = false;
-    private bool _bossAttackThenNighmareLevelLess25 = false;
+
 
     private void OnEnable()
     {

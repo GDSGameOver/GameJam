@@ -9,6 +9,7 @@ public class PauseMenu : Menu
 
     public override void Open()
     {
+        AudioSource.Play();
         CanvasGroup.blocksRaycasts = true;
         CanvasGroup.alpha = 1;
         _background.GetComponent<CanvasGroup>().alpha = 1;
@@ -17,9 +18,12 @@ public class PauseMenu : Menu
 
     public override void Close()
     {
+        AudioSource.Play();
         CanvasGroup.blocksRaycasts = false;
         CanvasGroup.alpha = 0;
         _background.GetComponent<CanvasGroup>().alpha = 0;
         Time.timeScale = 1;
     }
+
+   
 }

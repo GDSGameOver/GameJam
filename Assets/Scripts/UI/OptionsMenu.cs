@@ -55,6 +55,7 @@ public class OptionsMenu : Menu
 
     private void BackToMainMenu()
     {
+        AudioSource.Play();
         _mainMenu.Open();
         Close();
     }

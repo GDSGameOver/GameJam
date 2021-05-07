@@ -56,12 +56,12 @@ public class TouchNonUIOBjects : MonoBehaviour
                 case TouchPhase.Moved:
                     if (_controlCollider == Physics2D.OverlapPoint(touchPos) && _moveAllowed)
                         _rigibody2D.MovePosition(new Vector2(touchPos.x - _deltaX, touchPos.y - _deltaY));
-                    _iconBoss.enabled = false;
+                   // _iconBoss.enabled = false;
                     break;
 
                 case TouchPhase.Ended:
                     _moveAllowed = false;
-                    _iconBoss.enabled = true;
+                 //   _iconBoss.enabled = true;
                     break;
             }
         }

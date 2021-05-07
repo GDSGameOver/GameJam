@@ -7,6 +7,7 @@ public class Claw : MonoBehaviour
 {
     public event UnityAction PreparedToAttack;
 
+    [SerializeField] private AudioSource _attackSound;
     private Animator _animator;
     private Collider2D _collider;
 
@@ -26,4 +27,10 @@ public class Claw : MonoBehaviour
         PreparedToAttack?.Invoke();
         _animator.SetTrigger("Idle");
     }
+
+    private void PlayAttackSound()
+    {
+        _attackSound.Play();
+    }
+
 }
