@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class OptionsMenuInGame : Menu
 {
@@ -13,9 +14,14 @@ public class OptionsMenuInGame : Menu
     [SerializeField] private Button _mainMenuButton;
     [SerializeField] private Image _background;
     [SerializeField] private GameObject _cradleMover;
+    [SerializeField] private AudioMixerGroup _audioMixer;
+    [SerializeField] private Slider _sliderMusic;
+    [SerializeField] private Slider _sliderSfx;
 
     private void Start()
     {
+        _sliderMusic.value = PlayerPrefs.GetFloat("MusicVolume");
+        _sliderSfx.value =  PlayerPrefs.GetFloat("SfxVolume");
         CanvasGroup.blocksRaycasts = false;
         _controlJoystick.isOn = PlayerPrefs.GetInt("JoystickControl")==1;
         _controlFinger.isOn = PlayerPrefs.GetInt("FingerControl") == 1;
@@ -94,5 +100,16 @@ public class OptionsMenuInGame : Menu
         Close();
     }
 
-  
+    public void ChangeSound(float volume)
+    {
+        _audioMixer.audioMixer.SetFloat("BearBossSfx", Mathf.Lerp(-80, 0, volume));
+        PlayerPrefs.SetFloat("SfxVolume", volume);
+    }
+
+    public void ChangeMusic(float volume)
+    {
+        _audioMixer.audioMixer.SetFloat("BearBossMusic", Mathf.Lerp(-80, 0, volume));
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+    }
+
 }

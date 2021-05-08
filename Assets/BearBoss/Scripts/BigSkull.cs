@@ -7,6 +7,8 @@ public class BigSkull : MonoBehaviour
 {
     public event UnityAction AttackEnded;
 
+    [SerializeField] private AudioSource _attackSound;
+    [SerializeField] private AudioSource _revealSound;
     private Animator _animator;
 
     private void Start()
@@ -22,5 +24,15 @@ public class BigSkull : MonoBehaviour
     public void Reset()
     {
         gameObject.SetActive(false);
+    }
+
+    private void PlayAttackSound()
+    {
+        _attackSound.Play();
+    }
+
+    private void PlayRevealSound()
+    {
+        _revealSound.Play();
     }
 }

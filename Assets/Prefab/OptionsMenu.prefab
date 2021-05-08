@@ -226,13 +226,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanvasGroup: {fileID: 8007536696210820775}
+  AudioSource: {fileID: 0}
   _controlJoystick: {fileID: 8007536696694188382}
   _controlFinger: {fileID: 8007536698064872771}
   _modeEasy: {fileID: 8007536696836317274}
   _modeNormal: {fileID: 8007536696187244765}
   _modeHard: {fileID: 8007536696340366964}
   _mainMenuButton: {fileID: 8007536696295081951}
+  _mainMenu: {fileID: 0}
   _background: {fileID: 8007536696210820776}
+  _audioMixer: {fileID: 24300002, guid: f0bd65c47a58d3f42a6df82b961ba3b7, type: 2}
 --- !u!225 &8007536696210820775
 CanvasGroup:
   m_ObjectHideFlags: 0

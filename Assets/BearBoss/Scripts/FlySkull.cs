@@ -10,12 +10,11 @@ public class FlySkull : MonoBehaviour
     [SerializeField] private Transform _flyPoint;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private float _speed;
-    private Animator _animator;
+    [SerializeField] private AudioSource _attackSound;
 
     void Start()
     {
         _speed = 5;
-        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -27,5 +26,10 @@ public class FlySkull : MonoBehaviour
             transform.position = _startPoint.position;
             gameObject.SetActive(false);
         }
+    }
+
+    private void PlayAttackSound()
+    {
+        _attackSound.Play();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class OptionsMenu : Menu
@@ -13,6 +14,10 @@ public class OptionsMenu : Menu
     [SerializeField] private Button _mainMenuButton;
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Image _background;
+    [SerializeField] private AudioMixerGroup _audioMixer;
+    [SerializeField] private Slider _sliderMusic;
+    [SerializeField] private Slider _sliderSfx;
+
 
     private void Start()
     {
@@ -59,4 +64,19 @@ public class OptionsMenu : Menu
         _mainMenu.Open();
         Close();
     }
+
+    public void ChangeSound(float volume)
+    {
+        _audioMixer.audioMixer.SetFloat("MainMenuSfx", Mathf.Lerp(-80, 0, volume));
+        PlayerPrefs.SetFloat("SfxVolume", _sliderSfx.value);
+        PlayerPrefs.Save();
+    }
+
+    public void ChangeMusic(float volume)
+    {
+        _audioMixer.audioMixer.SetFloat("MainMenuMusic", Mathf.Lerp(-80, 0, volume));
+        PlayerPrefs.SetFloat("MusicVolume", _sliderMusic.value);
+        PlayerPrefs.Save();
+    }
 }
+

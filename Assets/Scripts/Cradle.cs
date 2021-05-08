@@ -14,6 +14,7 @@ public class Cradle : MonoBehaviour
     public event UnityAction DamagedByFlyBone;
 
     [SerializeField] private AudioSource[] _babyCryes;
+    [SerializeField] private Animator _animator;
     private Vector3 _position;
 
 
@@ -34,31 +35,37 @@ public class Cradle : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Claw claw))
         {
             DamagedByClaw?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
         if (collision.gameObject.TryGetComponent(out Whill whill))
         {
             DamagedByWhill?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
         if (collision.gameObject.TryGetComponent(out BigSkull bigSkull))
         {
             DamagedByBigSkull?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
         if (collision.gameObject.TryGetComponent(out BossBody bossBody))
         {
             DamagedByBoss?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
         if (collision.gameObject.TryGetComponent(out FlySkull flySkull))
         {
             DamagedByFlySkull?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
         if (collision.gameObject.TryGetComponent(out FlyBone flyBone))
         {
             DamagedByFlyBone?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
     }
@@ -73,6 +80,7 @@ public class Cradle : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out BossBody bossBody))
         {
             DamagedByBoss?.Invoke();
+            _animator.SetTrigger("Damaged");
             Cry();
         }
     }

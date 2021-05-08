@@ -20,7 +20,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI
+  m_Name: Sfx
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 5478e31847180b54c9b9bc4cba29a142
   m_Children: []
@@ -83,7 +83,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 70d3df20a6d76814895a6ddf2c291203
+    name: MainMenuMusic
+  - guid: a17ed61654fbe0546a059d62a2a8c0bb
+    name: BearBossMusic
+  - guid: f121fcd364700a4489cf73ecf96db5e5
+    name: BearBossSfx
+  - guid: 1974802a140f2bd48b6b019592b6618a
+    name: MainMenuSfx
   m_AudioMixerGroupViews:
   - guids:
     - 2020ce2a1a3980f4482e17b81245f6a6
