@@ -29,6 +29,7 @@ public class WinMenu : Menu
         _background.GetComponent<CanvasGroup>().alpha = 0;
         _mainMenuButton.interactable = false;
         _exitButton.interactable = false;
+        Time.timeScale = 1;
     }
 
     public override void Open()
@@ -38,6 +39,7 @@ public class WinMenu : Menu
         _background.GetComponent<CanvasGroup>().alpha = 1;
         _mainMenuButton.interactable = true;
         _exitButton.interactable = true;
+        Time.timeScale = 0;
     }
 
     private void ExitGame()
@@ -47,6 +49,7 @@ public class WinMenu : Menu
 
     private void BackToMainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
 }

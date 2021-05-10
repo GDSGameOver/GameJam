@@ -28,6 +28,12 @@ public class BossBearBehavior : MonoBehaviour
     private int _attackNumber;
     private bool _canAttack = true;
     private bool _bossReveal = false;
+    private bool _modeEasy = false;
+    private bool _modeNormal = false;
+    private bool _modeHard = false;
+    private float _waitFlySkullTimeAtack;
+    private float _waitClawTimeAtack;
+    private float _waitBigSkullTimeAtack;
 
 
     private void OnEnable()
@@ -48,6 +54,30 @@ public class BossBearBehavior : MonoBehaviour
 
     private void Start()
     {
+        _modeEasy = PlayerPrefs.GetInt("Easy") == 1;
+        _modeNormal = PlayerPrefs.GetInt("Normal") == 1;
+        _modeHard = PlayerPrefs.GetInt("Hard") == 1;
+
+        if (_modeEasy)
+        {
+           _waitFlySkullTimeAtack = 4;
+           _waitClawTimeAtack = 3;
+           _waitBigSkullTimeAtack = 3;
+        }
+        if (_modeNormal)
+        {
+            _waitFlySkullTimeAtack = 3;
+            _waitClawTimeAtack = 3;
+            _waitBigSkullTimeAtack = 2;
+        }
+        if (_modeHard)
+        {
+            _waitFlySkullTimeAtack = 2;
+            _waitClawTimeAtack = 2;
+            _waitBigSkullTimeAtack = 2;
+        }
+
+
         for (int i = 0; i < _flyBones.Length; i++)
         {
             _flyBones[i].gameObject.SetActive(true);
@@ -154,7 +184,7 @@ public class BossBearBehavior : MonoBehaviour
 
     IEnumerator WaitForSkullTimeAttack()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(_waitBigSkullTimeAtack);
         BossReveal();
         if (_bossReveal == false)
         {
@@ -164,7 +194,7 @@ public class BossBearBehavior : MonoBehaviour
 
     IEnumerator WaitForFlySkullTimeAttack()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(_waitFlySkullTimeAtack);
         BossReveal();
         if (_bossReveal == false)
         {
@@ -174,7 +204,7 @@ public class BossBearBehavior : MonoBehaviour
 
     IEnumerator WaitForClawTimeAttack()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(_waitClawTimeAtack);
         BossReveal();
         if (_bossReveal == false)
         {

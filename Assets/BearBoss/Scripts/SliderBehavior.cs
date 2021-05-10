@@ -36,6 +36,7 @@ public class SliderBehavior : MonoBehaviour
     private bool _modeEasy;
     private bool _modeNormal;
     private bool _modeHard;
+    
 
 
     private void OnEnable()
@@ -84,7 +85,7 @@ public class SliderBehavior : MonoBehaviour
             _increaseNightmareValueByTime = 0;
             _increaseFearValueByTime = 0;
             _reduceFearBySwing = 25;
-            _reduceNighmareByHit = 3;
+            _reduceNighmareByHit = 4;
         }
         if (_modeNormal)
         {
@@ -110,7 +111,7 @@ public class SliderBehavior : MonoBehaviour
             _bigSkullDamage = 30;
             _bossDamage = 40;
 
-            _increaseNightmareValueBySpine = 3;
+            _increaseNightmareValueBySpine = 2;
             _increaseNightmareValueByTime = 2f;
             _increaseFearValueByTime = 2f;
             _reduceFearBySwing = 15;
