@@ -10,6 +10,10 @@ public class BossDeath : MonoBehaviour
     public event UnityAction AnimationEndedHardLevel;
 
     [SerializeField] private AudioSource _dieSound;
+    [SerializeField] private AudioSource _burnSound;
+    [SerializeField] private AudioSource _handCrackSound;
+    [SerializeField] private AudioSource _faceCrackSound;
+    [SerializeField] private AudioSource _bossExplotionSound;
     private bool _modeEasy = false;
     private bool _modeNormal = false;
     private bool _modeHard = false;
@@ -41,5 +45,25 @@ public class BossDeath : MonoBehaviour
     private void DieRoar()
     {
         _dieSound.Play();
+    }
+
+    private void PlayCrackHandSound()
+    {
+        _handCrackSound.Play();
+    }
+
+    private void PlayBurnSound()
+    {
+       _burnSound.Play();
+    }
+
+    private void PlayFaceCrackSound()
+    {
+        _faceCrackSound.Play();
+    }
+
+    private void PlayBossExplosionSound()
+    {
+        _bossExplotionSound.Play();
     }
 }

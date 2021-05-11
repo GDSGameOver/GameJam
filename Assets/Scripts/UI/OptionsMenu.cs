@@ -21,7 +21,7 @@ public class OptionsMenu : Menu
 
     private void Start()
     {
-        _sliderMusic.value = .7f;
+        _sliderMusic.value = .9f;
         _sliderSfx.value = .9f;
         CanvasGroup.blocksRaycasts = false;
     }
