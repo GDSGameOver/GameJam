@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class DragFingerMove : MonoBehaviour
 {
-    private Vector3 touchPosition;
-    private Rigidbody2D rb;
-    private Vector3 direction;
-    private float moveSpeed = 50f;
+    private Vector3 _touchPosition;
+    private Rigidbody2D _rigidBody;
+    private Vector3 _direction;
+    private float _moveSpeed = 50f;
     [SerializeField] private Collider2D _controlCollider;
 
     
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
     }
 
     
@@ -22,15 +22,15 @@ public class DragFingerMove : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0;
-            if (_controlCollider==Physics2D.OverlapPoint(touchPosition))
+            _touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            _touchPosition.z = 0;
+            if (_controlCollider==Physics2D.OverlapPoint(_touchPosition))
             {
-                direction = (touchPosition - transform.position);
-                rb.velocity = new Vector2(direction.x, direction.y) * moveSpeed;
+                _direction = (_touchPosition - transform.position);
+                _rigidBody.velocity = new Vector2(_direction.x, _direction.y) * _moveSpeed;
             }
             if (touch.phase == TouchPhase.Ended)
-                rb.velocity = Vector2.zero;
+                _rigidBody.velocity = Vector2.zero;
         }
     }
 }
