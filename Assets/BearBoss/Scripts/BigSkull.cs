@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BigSkull : MonoBehaviour
+public class BigSkull : Enemy
 {
     public event UnityAction AttackEnded;
 
-    [SerializeField] private AudioSource _attackSound;
     [SerializeField] private AudioSource _revealSound;
     private Animator _animator;
 
@@ -26,10 +25,6 @@ public class BigSkull : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void PlayAttackSound()
-    {
-        _attackSound.Play();
-    }
 
     private void PlayRevealSound()
     {

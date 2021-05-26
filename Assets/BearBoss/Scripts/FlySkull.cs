@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class FlySkull : MonoBehaviour
+public class FlySkull : Enemy
 {
     public event UnityAction FlyedToPoint;
 
     [SerializeField] private Transform _flyPoint;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private float _speed;
-    [SerializeField] private AudioSource _attackSound;
 
     void Start()
     {
@@ -28,8 +27,5 @@ public class FlySkull : MonoBehaviour
         }
     }
 
-    private void PlayAttackSound()
-    {
-        _attackSound.Play();
-    }
+
 }

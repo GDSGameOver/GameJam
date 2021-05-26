@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class Cradle : MonoBehaviour
 {
     public event UnityAction CradleDestroyed;
+    public event UnityAction<float> HPChangedNormalized;
+
     public event UnityAction DamagedByClaw;
     public event UnityAction DamagedByWhill;
     public event UnityAction DamagedByBigSkull;
@@ -13,23 +15,82 @@ public class Cradle : MonoBehaviour
     public event UnityAction DamagedByFlySkull;
     public event UnityAction DamagedByFlyBone;
 
-    [SerializeField] private AudioSource[] _babyCryes;
+    [SerializeField] private Inputs _inputs;
+    [SerializeField] private HealSetting _healSetting;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _cradleCrouchSound;
+    [SerializeField] private AudioClip[] _babyCryes;
+
     [SerializeField] private Animator _animator;
+
+    private float _hp = 100;
+    private float _hpMax = 100;
+    private float _heal;
+
     private Vector3 _position;
 
+    private void Start()
+    {
+        _heal = _healSetting.Heal[PlayerPrefs.GetInt("Difficult", 0)];
+    }
 
     public void EndGameTrigger()
     {
         CradleDestroyed?.Invoke();
     }
 
-
     public Vector3 GetPosition()
     {
-        _position = transform.position;
-        return _position;
+        return transform.position;
     }
 
+    private void Update()
+    {
+        if (_inputs.CanPlayerHeal)
+            Heal(_heal * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Heal(_heal * Time.deltaTime);
+            //_hp -= 50;
+            //TakeDamage(0);
+        }
+    }
+
+    public void Heal(float count)
+    {
+        _animator.SetTrigger("Swing");
+        _audioSource.PlayOneShot(_cradleCrouchSound);
+        _hp += count;
+        if (_hp > _hpMax)
+            _hp = _hpMax;
+        HPChangedNormalized?.Invoke(_hp / _hpMax);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (_hp < 0)
+            return;
+
+        _hp -= damage;
+        if (_hp <= 0)
+        {
+            _hp = 0;
+            CradleDestroyed?.Invoke();
+            _animator.SetTrigger("Death");
+        }
+
+        HPChangedNormalized?.Invoke(_hp / _hpMax);
+        _animator.SetTrigger("Damaged");
+        Cry();
+    }
+
+    private void Cry()
+    {
+        _audioSource.PlayOneShot(_babyCryes[Random.Range(0, _babyCryes.Length)]);
+    }
+
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Claw claw))
@@ -69,12 +130,10 @@ public class Cradle : MonoBehaviour
             Cry();
         }
     }
+    */
 
-    private void Cry()
-    {
-        _babyCryes[Random.Range(0, 3)].Play();
-    }
 
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out BossBody bossBody))
@@ -84,4 +143,5 @@ public class Cradle : MonoBehaviour
             Cry();
         }
     }
+    */
 }

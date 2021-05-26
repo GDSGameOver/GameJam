@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Whill : MonoBehaviour
+public class Whill : Enemy
 {
-    [SerializeField] private AudioSource _attackSound;
-
-    private void PlayAttackSound()
-    {
-        _attackSound.Play();
-    }
 
     public void Reset()
     {

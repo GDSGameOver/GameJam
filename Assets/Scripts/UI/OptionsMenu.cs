@@ -54,9 +54,17 @@ public class OptionsMenu : Menu
         Time.timeScale = 1;
         PlayerPrefs.SetInt("JoystickControl", _controlJoystick.isOn ? 1 : 0);
         PlayerPrefs.SetInt("FingerControl", _controlFinger.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("Easy", _modeEasy.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("Normal", _modeNormal.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("Hard", _modeHard.isOn ? 1 : 0);
+
+        int difficult = 0;
+        if (_modeEasy.isOn)
+            difficult = 0;
+        if (_modeNormal.isOn)
+            difficult = 1;
+        if (_modeHard.isOn)
+            difficult = 2;
+
+        PlayerPrefs.GetInt("Difficult", difficult);
+
         PlayerPrefs.Save();
     }
 

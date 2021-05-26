@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814243240368988844}
   - component: {fileID: 814243240368988845}
-  - component: {fileID: 1845819965764161758}
+  - component: {fileID: 4467703006911339190}
   m_Layer: 0
   m_Name: JawUp
   m_TagString: Untagged
@@ -103,7 +103,7 @@ EdgeCollider2D:
   - {x: 0.108779974, y: 0.77268416}
   - {x: 0.20600727, y: 0.909242}
   - {x: 0.54681194, y: 1.2171056}
---- !u!114 &1845819965764161758
+--- !u!114 &4467703006911339190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,11 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 814243240368988843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f35c60d0db21d46b263e04ce14bf52, type: 3}
+  m_Script: {fileID: 11500000, guid: f7c26517e80523d419a59f64b9c18c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSound: {fileID: 0}
-  _revealSound: {fileID: 0}
+  _parent: {fileID: 6727625368018298091}
 --- !u!1 &814243240747094687
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814243240747094672}
   - component: {fileID: 814243240747094673}
-  - component: {fileID: 92091263610404164}
+  - component: {fileID: 3798677417522041342}
   m_Layer: 0
   m_Name: SkullUp
   m_TagString: Untagged
@@ -266,7 +265,7 @@ EdgeCollider2D:
   - {x: 3.8261564, y: 2.5973892}
   - {x: 4.092584, y: 2.4171417}
   - {x: 4.4146643, y: 2.4555628}
---- !u!114 &92091263610404164
+--- !u!114 &3798677417522041342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,11 +274,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 814243240747094687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f35c60d0db21d46b263e04ce14bf52, type: 3}
+  m_Script: {fileID: 11500000, guid: f7c26517e80523d419a59f64b9c18c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackSound: {fileID: 0}
-  _revealSound: {fileID: 0}
+  _parent: {fileID: 6727625368018298091}
 --- !u!1 &814243240977011156
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f35c60d0db21d46b263e04ce14bf52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _difficultDamage: {fileID: 0}
   _attackSound: {fileID: 2011082098}
   _revealSound: {fileID: 2011082097}
 --- !u!82 &2011082097

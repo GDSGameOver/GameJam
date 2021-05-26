@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TouchNonUIOBjects : MonoBehaviour
@@ -14,9 +15,11 @@ public class TouchNonUIOBjects : MonoBehaviour
     [SerializeField] private Button _iconBoss;
 
 
-    float _deltaX, _deltaY, _offSetPositionX, _offSetPositionY;
+    private float _deltaX, _deltaY, _offSetPositionX, _offSetPositionY;
     private Rigidbody2D _rigibody2D;
-    bool _moveAllowed = false;
+    private bool _moveAllowed = false;
+
+    public event UnityAction<bool> Using;
 
     private void Awake()
     {
@@ -25,8 +28,7 @@ public class TouchNonUIOBjects : MonoBehaviour
     }
 
     private void Start()
-    {
-        
+    {        
         _rigibody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -56,12 +58,14 @@ public class TouchNonUIOBjects : MonoBehaviour
                 case TouchPhase.Moved:
                     if (_controlCollider == Physics2D.OverlapPoint(touchPos) && _moveAllowed)
                         _rigibody2D.MovePosition(new Vector2(touchPos.x - _deltaX, touchPos.y - _deltaY));
-                   // _iconBoss.enabled = false;
+                    Using?.Invoke(true);
+                    //_iconBoss.enabled = false;
                     break;
 
                 case TouchPhase.Ended:
                     _moveAllowed = false;
-                 //   _iconBoss.enabled = true;
+                    Using?.Invoke(false);
+                    //_iconBoss.enabled = true;
                     break;
             }
         }

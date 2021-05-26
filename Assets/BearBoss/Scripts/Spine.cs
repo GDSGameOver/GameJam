@@ -14,6 +14,8 @@ public class Spine : MonoBehaviour
     [SerializeField] private int _numberOfHits;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Button _buttonSpineDestroy;
+    [SerializeField] private Inputs _inputs;
+
     private Animator _animator;
 
     private void OnEnable()
@@ -46,11 +48,14 @@ public class Spine : MonoBehaviour
 
     private void HitSpine()
     {
-        _numberOfHits++;
-        _animator.SetTrigger("Hit");
-        if (_numberOfHits > 15)
+        if (_inputs.CanDamaging)
         {
-            _animator.SetTrigger("Death");
+            _numberOfHits++;
+            _animator.SetTrigger("Hit");
+            if (_numberOfHits > 15)
+            {
+                _animator.SetTrigger("Death");
+            }
         }
     }
 

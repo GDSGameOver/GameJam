@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlyBone : MonoBehaviour
+public class FlyBone : Enemy
 {
     [SerializeField] private Transform[] _flyPoints;
     [SerializeField] private Transform[] _startPoints;
@@ -59,6 +59,7 @@ public class FlyBone : MonoBehaviour
     {
         StartCoroutine(WaitToActivate());
     }
+
     IEnumerator WaitToActivate()
     {
         gameObject.transform.position = _startPoints[Random.Range(0, _startPoints.Length)].position;

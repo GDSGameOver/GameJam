@@ -5,10 +5,12 @@ using UnityEngine;
 public class BossBear : MonoBehaviour
 {
     [SerializeField] private Spine _spine;
-    [SerializeField] private AudioSource _revealSound;
-    [SerializeField] private AudioSource[] _attackSound;
-    [SerializeField] private AudioSource _hideSound;
-    [SerializeField] private AudioSource _handsRevealSound;
+    [SerializeField] private AudioSource _audioSource;
+
+    [SerializeField] private AudioClip _revealSound;
+    [SerializeField] private AudioClip[] _attackSound;
+    [SerializeField] private AudioClip _hideSound;
+    [SerializeField] private AudioClip _handsRevealSound;
 
     private Animator _animator;
 
@@ -34,21 +36,21 @@ public class BossBear : MonoBehaviour
 
     private void PlayAttackSound()
     {
-        _attackSound[Random.Range(0, 1)].Play();
+        _audioSource.PlayOneShot(_attackSound[Random.Range(0, _attackSound.Length)]);
     }
 
     private void PlayRevealSound()
     {
-        _revealSound.Play();
+        _audioSource.PlayOneShot(_revealSound);
     }
 
     private void PlayHideSound()
     {
-        _hideSound.Play();
+        _audioSource.PlayOneShot(_hideSound);
     }
 
     private void PlayHandsRevealSound()
     {
-        _handsRevealSound.Play();
+        _audioSource.PlayOneShot(_handsRevealSound);
     }
 }

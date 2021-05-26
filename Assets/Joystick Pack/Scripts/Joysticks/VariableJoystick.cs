@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class VariableJoystick : Joystick
@@ -11,6 +12,8 @@ public class VariableJoystick : Joystick
     [SerializeField] private JoystickType joystickType = JoystickType.Fixed;
 
     private Vector2 fixedPosition = Vector2.zero;
+
+    public event UnityAction<bool> Using;
 
     public void SetMode(JoystickType joystickType)
     {
@@ -37,7 +40,9 @@ public class VariableJoystick : Joystick
         {
             background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
             background.gameObject.SetActive(true);
+            
         }
+        Using?.Invoke(true);
         base.OnPointerDown(eventData);
     }
 
@@ -45,6 +50,8 @@ public class VariableJoystick : Joystick
     {
         if(joystickType != JoystickType.Fixed)
             background.gameObject.SetActive(false);
+
+        Using?.Invoke(false);
 
         base.OnPointerUp(eventData);
     }
