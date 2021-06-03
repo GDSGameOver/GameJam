@@ -52,7 +52,7 @@ public class BossBearBehavior : MonoBehaviour
 
     private void Start()
     {
-        var difficult = PlayerPrefs.GetInt("Difficult", 0);
+        var difficult = PlayerPrefs.GetInt("Difficult");
 
         _waitFlySkullTimeAttack = _setting.Setting[difficult].WaitBigSkullTimeAttack;
         _waitClawTimeAttack = _setting.Setting[difficult].WaitClawTimeAttack;

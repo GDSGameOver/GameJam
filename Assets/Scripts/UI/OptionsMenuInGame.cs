@@ -23,11 +23,26 @@ public class OptionsMenuInGame : Menu
         _sliderMusic.value = PlayerPrefs.GetFloat("MusicVolume");
         _sliderSfx.value =  PlayerPrefs.GetFloat("SfxVolume");
         CanvasGroup.blocksRaycasts = false;
-        _controlJoystick.isOn = PlayerPrefs.GetInt("JoystickControl")==1;
+        _controlJoystick.isOn = PlayerPrefs.GetInt("JoystickControl")== 1;
         _controlFinger.isOn = PlayerPrefs.GetInt("FingerControl") == 1;
-        _modeEasy.isOn = PlayerPrefs.GetInt("Easy") == 1;
-        _modeNormal.isOn = PlayerPrefs.GetInt("Normal") == 1;
-        _modeHard.isOn = PlayerPrefs.GetInt("Hard") == 1;
+
+        var difficult = PlayerPrefs.GetInt("Difficult");
+ 
+
+
+        if (difficult == 0)
+        {
+            _modeEasy.isOn = true;
+        }
+        if (difficult == 1)
+        {
+            _modeNormal.isOn = true;
+        }
+        if (difficult == 2)
+        {
+            _modeHard.isOn = true;
+        }
+
 
         if (_controlJoystick.isOn)
         {
@@ -75,23 +90,6 @@ public class OptionsMenuInGame : Menu
         _background.GetComponent<CanvasGroup>().alpha = 0;
         _mainMenuButton.interactable = false;
         Time.timeScale = 1;
-        PlayerPrefs.SetInt("JoystickControl", _controlJoystick.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("FingerControl", _controlFinger.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("Easy", _modeEasy.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("Normal", _modeNormal.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("Hard", _modeHard.isOn ? 1 : 0);
-        PlayerPrefs.Save();
-
-        if (_controlJoystick)
-        {
-            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = false;
-            _cradleMover.GetComponent<PlayerMover>().enabled = true;
-        }
-        else
-        {
-            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = true;
-            _cradleMover.GetComponent<PlayerMover>().enabled = false;
-        }
     }
 
     private void BackToMainMenu()

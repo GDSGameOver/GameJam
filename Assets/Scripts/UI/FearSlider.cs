@@ -9,6 +9,7 @@ public class FearSlider : MonoBehaviour
     [SerializeField] private Cradle _cradle;
     private float _duration = 0.5f;
     private float _newSliderValue = 0;
+    private bool isPlayerDead = false;
 
     private Coroutine _changeValue;
 
@@ -26,8 +27,11 @@ public class FearSlider : MonoBehaviour
     private void SetHP(float hp)
     {
         hp = 1 - hp;
-        //if (hp == _newSliderValue && _slider.value == hp)
-        //    return;
+        if (isPlayerDead)
+            return;
+
+        if (hp >= 1)
+            isPlayerDead = true;
 
         if (_changeValue != null)
         {
@@ -36,7 +40,7 @@ public class FearSlider : MonoBehaviour
                 _newSliderValue = hp;
             }
             else
-            {                
+            {
                 StopCoroutine(_changeValue);
                 _changeValue = null;
             }
@@ -63,3 +67,4 @@ public class FearSlider : MonoBehaviour
         _changeValue = null;
     }
 }
+

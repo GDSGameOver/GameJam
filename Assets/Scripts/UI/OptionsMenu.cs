@@ -63,8 +63,8 @@ public class OptionsMenu : Menu
         if (_modeHard.isOn)
             difficult = 2;
 
-        PlayerPrefs.GetInt("Difficult", difficult);
-
+        PlayerPrefs.SetInt("Difficult", difficult);
+       
         PlayerPrefs.Save();
     }
 

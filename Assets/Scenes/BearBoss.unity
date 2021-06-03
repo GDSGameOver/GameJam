@@ -353,7 +353,7 @@ RectTransform:
   - {fileID: 1103839300}
   - {fileID: 1739043128}
   m_Father: {fileID: 1718336285}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1423,7 +1423,7 @@ RectTransform:
   - {fileID: 583562512}
   - {fileID: 1504996527}
   m_Father: {fileID: 1718336285}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6554,7 +6554,7 @@ PrefabInstance:
     - target: {fileID: 3881087803549984436, guid: ec536a7718376554185e4a856d5ae230,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -119.999886
+      value: -119.99988
       objectReference: {fileID: 0}
     - target: {fileID: 3881087803549984436, guid: ec536a7718376554185e4a856d5ae230,
         type: 3}
@@ -7596,7 +7596,7 @@ RectTransform:
   - {fileID: 1405298679}
   - {fileID: 786964804}
   m_Father: {fileID: 1718336285}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9283,7 +9283,6 @@ MonoBehaviour:
   _pointsOfFlyBones: []
   _bossBear: {fileID: 218388433}
   _flyBonesStartPoints: []
-  _sliderBehavior: {fileID: 853857454}
   _flyBones:
   - {fileID: 645723219}
   - {fileID: 1214355534}
@@ -12882,7 +12881,7 @@ Animator:
   m_GameObject: {fileID: 1436482022}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bdc09ab4f1117e8429e3ca1c666c554e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -13741,7 +13740,7 @@ RectTransform:
   - {fileID: 148381285}
   - {fileID: 147325179}
   m_Father: {fileID: 1718336285}
-  m_RootOrder: 13
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14421,7 +14420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1716123383
 Animator:
   serializedVersion: 3
@@ -15050,10 +15049,10 @@ RectTransform:
   - {fileID: 1851625988}
   - {fileID: 2135541016}
   - {fileID: 1436482023}
-  - {fileID: 1623492824}
   - {fileID: 973241527}
   - {fileID: 130785637}
   - {fileID: 218982692}
+  - {fileID: 1623492824}
   m_Father: {fileID: 1065323085}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17762,7 +17761,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &8007536696042414220
 GameObject:
   m_ObjectHideFlags: 0
@@ -20100,7 +20099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -11.579}
   m_AnchorMin: {x: 0.24764866, y: 0.3421667}
   m_AnchorMax: {x: 0.37318924, y: 0.48733336}
-  m_AnchoredPosition: {x: -16.500008, y: -1.5}
+  m_AnchoredPosition: {x: -16.5, y: -1.5}
   m_SizeDelta: {x: -24.787933, y: -70.999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8007536697920948265

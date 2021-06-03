@@ -76,14 +76,22 @@ public class Cradle : MonoBehaviour
         if (_hp <= 0)
         {
             _hp = 0;
-            CradleDestroyed?.Invoke();
-            _animator.SetTrigger("Death");
+            StartCoroutine(OnDead());
         }
 
         HPChangedNormalized?.Invoke(_hp / _hpMax);
         _animator.SetTrigger("Damaged");
         Cry();
     }
+
+    private IEnumerator OnDead()
+    {
+        yield return new WaitForSeconds(1);
+        CradleDestroyed?.Invoke();
+        _animator.SetTrigger("Death");
+
+    }
+
 
     private void Cry()
     {

@@ -14,32 +14,28 @@ public class BossDeath : MonoBehaviour
     [SerializeField] private AudioSource _handCrackSound;
     [SerializeField] private AudioSource _faceCrackSound;
     [SerializeField] private AudioSource _bossExplotionSound;
-    private bool _modeEasy = false;
-    private bool _modeNormal = false;
-    private bool _modeHard = false;
 
     private void Start()
     {
-        _modeEasy = PlayerPrefs.GetInt("Easy") == 1;
-        _modeNormal = PlayerPrefs.GetInt("Normal") == 1;
-        _modeHard = PlayerPrefs.GetInt("Hard") == 1;
+        var difficult = PlayerPrefs.GetInt("Difficult");
+        Debug.Log(difficult);
     }
 
-    private void BossDissapear()
+    private void BossDissapear(int difficult)
     {
-        if (_modeEasy)
+        
+        if (difficult == 0)
         {
             AnimationEndedEasyLevel?.Invoke();
         }
-        if (_modeNormal)
+        if (difficult == 1)
         {
             AnimationEndedNormalLevel?.Invoke();
         }
-        if (_modeHard)
+        if (difficult == 2)
         {
             AnimationEndedHardLevel?.Invoke();
-        }
-        
+        } 
     }
 
     private void DieRoar()

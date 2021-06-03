@@ -67,7 +67,6 @@ public class SliderBehavior : MonoBehaviour
 
     private void Start()
     {
-
      _modeEasy = PlayerPrefs.GetInt("Easy") == 1;
      _modeNormal = PlayerPrefs.GetInt("Normal") == 1;
      _modeHard = PlayerPrefs.GetInt("Hard") == 1;
