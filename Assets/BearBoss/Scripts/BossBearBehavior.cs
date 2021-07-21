@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossBearBehavior : MonoBehaviour
 {
     [SerializeField] private Boss _boss;
+    [SerializeField] private BossIcon _bossIcon;
     [SerializeField] private BossAttackActivator _bossAttackActivator;
     [SerializeField] private Cradle _cradle;
     [SerializeField] private Claw _claw;
@@ -27,6 +28,7 @@ public class BossBearBehavior : MonoBehaviour
     [SerializeField] private Animator _bossBearAnimator;
 
     [SerializeField] private BearBossSetting _setting;
+    [SerializeField] private Inputs _inputs;
 
     private bool _canAttack = true;
     private bool _bossReveal = false;
@@ -40,6 +42,8 @@ public class BossBearBehavior : MonoBehaviour
         _claw.PreparedToAttack += GetCradlePositionToAttackClaw;
         _bossAttackActivator.BossAttackActivated += ActivateBossAtack;
         _spine.Destroyed += BossHide;
+        if (_bossIcon)
+            _bossIcon.Using += BossClick;
     }
 
     private void OnDisable()
@@ -48,6 +52,8 @@ public class BossBearBehavior : MonoBehaviour
         _claw.PreparedToAttack -= GetCradlePositionToAttackClaw;
         _bossAttackActivator.BossAttackActivated -= ActivateBossAtack;
         _spine.Destroyed -= BossHide;
+        if (_bossIcon)
+            _bossIcon.Using -= BossClick;
     }
 
     private void Start()
@@ -72,6 +78,7 @@ public class BossBearBehavior : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_inputs.CanDamaging);
         if (_canAttack == true && _bossReveal == false)
         {
             BossRandomAttack();
@@ -209,16 +216,12 @@ public class BossBearBehavior : MonoBehaviour
         StartCoroutine(WaitForSkullTimeAttack());
     }
 
-    /*
-    private void BossReveal()
+    private void BossClick()
     {
-        if (_bossReveal == true)
-        {
-           _bossBear.gameObject.SetActive(true);
-            StartCoroutine(WaitToDropSpine());
-        } 
+        if (_inputs.CanDamaging)
+            _boss.TakeDamage();
     }
-    */
+
     private void BossDeath()
     {
         if (_bossReveal == true)
@@ -235,42 +238,12 @@ public class BossBearBehavior : MonoBehaviour
     }
 
 
-    /*
-    private void BoneWhillAttackLeft()
-    {
-        _canAttack = false;
-        for (int i = 0; i < _boneWhillsLeft.Length; i++)
-        {
-            _boneWhillsLeft[i].gameObject.SetActive(true);
-        }
-        StartCoroutine(WaitForSkullTimeAttack());
-    }
-
-    private void BoneWhillAttackRight()
-    {
-        _canAttack = false;
-        for (int i = 0; i < _boneWhillsRight.Length; i++)
-        {
-            _boneWhillsRight[i].gameObject.SetActive(true);
-        }
-        StartCoroutine(WaitForSkullTimeAttack());
-    }
- 
-    private void BoneWhillAttackUp()
-    {
-        _canAttack = false;
-        for (int i = 0; i < _boneWhillsUp.Length; i++)
-        {
-            _boneWhillsUp[i].gameObject.SetActive(true);
-        }
-        StartCoroutine(WaitForSkullTimeAttack());
-    }/*/
-
+  
     private void DisableObjects(FlySkull[] skulls)
     {
         for (int i = 0; i < skulls.Length; i++)
         {
-            skulls[i].gameObject.SetActive(true);
+            skulls[i].gameObject.SetActive(false);
         }
     }
 
@@ -278,9 +251,10 @@ public class BossBearBehavior : MonoBehaviour
     {
         for (int i = 0; i < whills.Length; i++)
         {
-            whills[i].gameObject.SetActive(true);
+            whills[i].gameObject.SetActive(false);
         }
     }
+
 
     private void BossDie()
     {

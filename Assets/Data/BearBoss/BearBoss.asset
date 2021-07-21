@@ -18,7 +18,7 @@ MonoBehaviour:
     WaitBigSkullTimeAttack: 3
   - WaitFlySkullTimeAttack: 3
     WaitClawTimeAttack: 3
-    WaitBigSkullTimeAttack: 2
+    WaitBigSkullTimeAttack: 3
   - WaitFlySkullTimeAttack: 2
     WaitClawTimeAttack: 2
-    WaitBigSkullTimeAttack: 2
+    WaitBigSkullTimeAttack: 3

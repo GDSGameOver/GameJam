@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private BossSetting _bossSetting;
+    [SerializeField] private Spine _bossSpine;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip[] _painSound;
 
@@ -13,6 +14,7 @@ public class Boss : MonoBehaviour
     private float _hpMax = 100;
     private float _lastHP;
     private float _heal;
+    private float _healBySpine;
     private float _damage;
     private bool isBossPhase;
 
@@ -25,10 +27,21 @@ public class Boss : MonoBehaviour
 
     public event UnityAction<float> HPChangedNormalized;
 
+    private void OnEnable()
+    {
+        _bossSpine.TouchedToBossIcon += HealBySpine;
+    }
+
+    private void OnDisable()
+    {
+        _bossSpine.TouchedToBossIcon -= HealBySpine;
+    }
+
     private void Start()
     {
-        _heal = _bossSetting.Setting[PlayerPrefs.GetInt("Difficult", 0)].IncreaseNightmareValueByTime;
-        _damage = _bossSetting.Setting[PlayerPrefs.GetInt("Difficult", 0)].ReduceNighmareByHit;
+        _heal = _bossSetting.Setting[PlayerPrefs.GetInt("Difficult")].IncreaseNightmareValueByTime;
+        _damage = _bossSetting.Setting[PlayerPrefs.GetInt("Difficult")].ReduceNighmareByHit;
+        _healBySpine = _bossSetting.Setting[PlayerPrefs.GetInt("Difficult")].IncreaseNightmareValueBySpine;
     }
 
     public void TakeDamage()
@@ -39,7 +52,7 @@ public class Boss : MonoBehaviour
         _lastHP = _hp;
         var damage = _damage;
         if (isBossPhase)
-            damage *= 0.1f;
+            damage *= 0.5f;
         _hp -= damage;
 
         
@@ -73,23 +86,30 @@ public class Boss : MonoBehaviour
         if (elapsedTime > 1)
         {
             elapsedTime--;
-            Heal();
+            Heal(_heal);
         }
     }
 
-    public void Heal()
+    public void Heal(float heal)
     {
-        _hp += _heal;
+        _hp += heal;
         if (_hp > _hpMax)
             _hp = _hpMax;
         _lastHP = _hp;
         HPChangedNormalized?.Invoke(_hp / _hpMax);
     }
 
+    private void HealBySpine()
+    {
+        Heal(_healBySpine); 
+    }
+
     public void SetBossPhase(bool isActive)
     {
         isBossPhase = isActive;
     }
+
+
 }
 
 /*

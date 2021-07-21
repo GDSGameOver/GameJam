@@ -15,15 +15,11 @@ public class BossDeath : MonoBehaviour
     [SerializeField] private AudioSource _faceCrackSound;
     [SerializeField] private AudioSource _bossExplotionSound;
 
-    private void Start()
+   
+
+    private void BossDissapear()
     {
         var difficult = PlayerPrefs.GetInt("Difficult");
-        Debug.Log(difficult);
-    }
-
-    private void BossDissapear(int difficult)
-    {
-        
         if (difficult == 0)
         {
             AnimationEndedEasyLevel?.Invoke();

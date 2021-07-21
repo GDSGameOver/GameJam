@@ -14,4 +14,5 @@ public struct BossDifficultSetting
 {
     public float IncreaseNightmareValueByTime;
     public float ReduceNighmareByHit;
+    public float IncreaseNightmareValueBySpine;
 }

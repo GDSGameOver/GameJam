@@ -49,7 +49,7 @@ public class FlyBone : Enemy
         _currentFlyPoint.position = _flyPoints[Random.Range(0, _flyPoints.Length)].position;
     }
 
-    public void ResetFlybone()
+    private void ResetFlybone()
     {
         _crushSound.Play();
         _animator.SetTrigger("Crush"); 

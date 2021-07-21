@@ -7,12 +7,7 @@ using UnityEngine.UI;
 public class TouchNonUIOBjects : MonoBehaviour
 {
     [SerializeField] private Collider2D _controlCollider;
-    [SerializeField] private Collider2D _spineCollider;
-    [SerializeField] private Animator _animatorSpine;
-    [SerializeField] private Cradle _cradle;
-    [SerializeField] private Spine _spine;
-    [SerializeField] private Transform _startPoint;
-    [SerializeField] private Button _iconBoss;
+    [SerializeField] private GameObject _movingObject;
 
 
     private float _deltaX, _deltaY, _offSetPositionX, _offSetPositionY;
@@ -35,7 +30,7 @@ public class TouchNonUIOBjects : MonoBehaviour
 
     private void Update()
     {
-        _cradle.transform.position = transform.position;
+        _movingObject.transform.position = transform.position;
         _controlCollider.offset = new Vector2(_offSetPositionX, _offSetPositionY);
 
         if (Input.touchCount > 0)
@@ -59,13 +54,13 @@ public class TouchNonUIOBjects : MonoBehaviour
                     if (_controlCollider == Physics2D.OverlapPoint(touchPos) && _moveAllowed)
                         _rigibody2D.MovePosition(new Vector2(touchPos.x - _deltaX, touchPos.y - _deltaY));
                     Using?.Invoke(true);
-                    //_iconBoss.enabled = false;
+                
                     break;
 
                 case TouchPhase.Ended:
                     _moveAllowed = false;
                     Using?.Invoke(false);
-                    //_iconBoss.enabled = true;
+                  
                     break;
             }
         }

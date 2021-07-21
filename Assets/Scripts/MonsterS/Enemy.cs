@@ -6,14 +6,13 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private DifficultDamage _difficultDamage;
 
-
     [SerializeField] private AudioSource _attackSound;
 
     private float _damage;
 
     private void Awake()
     {        
-        _damage = _difficultDamage.Damage[PlayerPrefs.GetInt("Difficult", 0)];
+        _damage = _difficultDamage.Damage[PlayerPrefs.GetInt("Difficult")];
     }
 
     private void PlayAttackSound()

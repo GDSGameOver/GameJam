@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BigSkull
   m_EditorClassIdentifier: 
   _damage:
+  - 10
+  - 15
   - 20
-  - 25
-  - 30

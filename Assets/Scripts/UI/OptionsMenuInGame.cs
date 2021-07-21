@@ -28,8 +28,6 @@ public class OptionsMenuInGame : Menu
 
         var difficult = PlayerPrefs.GetInt("Difficult");
  
-
-
         if (difficult == 0)
         {
             _modeEasy.isOn = true;

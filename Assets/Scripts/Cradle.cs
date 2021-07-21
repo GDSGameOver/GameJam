@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class Cradle : MonoBehaviour
+
+
+public class Cradle : MonoBehaviour, IDragHandler
 {
     public event UnityAction CradleDestroyed;
     public event UnityAction<float> HPChangedNormalized;
@@ -22,16 +25,22 @@ public class Cradle : MonoBehaviour
     [SerializeField] private AudioClip[] _babyCryes;
 
     [SerializeField] private Animator _animator;
+    private RectTransform _rectTransform;
 
     private float _hp = 100;
     private float _hpMax = 100;
     private float _heal;
 
-    private Vector3 _position;
+    private Vector3 _lastPosition;
+
+    private void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();    
+    }
 
     private void Start()
     {
-        _heal = _healSetting.Heal[PlayerPrefs.GetInt("Difficult", 0)];
+        _heal = _healSetting.Heal[PlayerPrefs.GetInt("Difficult")];
     }
 
     public void EndGameTrigger()
@@ -60,7 +69,7 @@ public class Cradle : MonoBehaviour
     public void Heal(float count)
     {
         _animator.SetTrigger("Swing");
-        _audioSource.PlayOneShot(_cradleCrouchSound);
+       // _audioSource.PlayOneShot(_cradleCrouchSound);
         _hp += count;
         if (_hp > _hpMax)
             _hp = _hpMax;
@@ -81,7 +90,7 @@ public class Cradle : MonoBehaviour
 
         HPChangedNormalized?.Invoke(_hp / _hpMax);
         _animator.SetTrigger("Damaged");
-        Cry();
+       // Cry();
     }
 
     private IEnumerator OnDead()
@@ -97,6 +106,14 @@ public class Cradle : MonoBehaviour
     {
         _audioSource.PlayOneShot(_babyCryes[Random.Range(0, _babyCryes.Length)]);
     }
+
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        _rectTransform.anchoredPosition += eventData.delta*1.4f;
+    }
+
+   
 
     /*
     private void OnTriggerEnter2D(Collider2D collision)

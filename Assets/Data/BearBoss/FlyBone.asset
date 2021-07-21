@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FlyBone
   m_EditorClassIdentifier: 
   _damage:
+  - 2
+  - 3
   - 5
-  - 7
-  - 10

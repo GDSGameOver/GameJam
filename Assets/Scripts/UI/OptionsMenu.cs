@@ -24,6 +24,7 @@ public class OptionsMenu : Menu
         _sliderMusic.value = .9f;
         _sliderSfx.value = .9f;
         CanvasGroup.blocksRaycasts = false;
+        SaveSettings();
     }
 
     private void OnEnable()
@@ -52,20 +53,7 @@ public class OptionsMenu : Menu
         _background.GetComponent<CanvasGroup>().alpha = 0;
         _mainMenuButton.interactable = false;
         Time.timeScale = 1;
-        PlayerPrefs.SetInt("JoystickControl", _controlJoystick.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("FingerControl", _controlFinger.isOn ? 1 : 0);
-
-        int difficult = 0;
-        if (_modeEasy.isOn)
-            difficult = 0;
-        if (_modeNormal.isOn)
-            difficult = 1;
-        if (_modeHard.isOn)
-            difficult = 2;
-
-        PlayerPrefs.SetInt("Difficult", difficult);
-       
-        PlayerPrefs.Save();
+        SaveSettings();
     }
 
     private void BackToMainMenu()
@@ -86,6 +74,24 @@ public class OptionsMenu : Menu
     {
         _audioMixer.audioMixer.SetFloat("MainMenuMusic", Mathf.Lerp(-80, 0, volume));
         PlayerPrefs.SetFloat("MusicVolume", _sliderMusic.value);
+        PlayerPrefs.Save();
+    }
+
+    private void SaveSettings()
+    {
+        PlayerPrefs.SetInt("JoystickControl", _controlJoystick.isOn ? 1 : 0);
+        PlayerPrefs.SetInt("FingerControl", _controlFinger.isOn ? 1 : 0);
+
+        int difficult = 0;
+        if (_modeEasy.isOn)
+            difficult = 0;
+        if (_modeNormal.isOn)
+            difficult = 1;
+        if (_modeHard.isOn)
+            difficult = 2;
+
+        PlayerPrefs.SetInt("Difficult", difficult);
+
         PlayerPrefs.Save();
     }
 }

@@ -10,10 +10,6 @@ public class Inputs : MonoBehaviour
     [SerializeField] private TouchNonUIOBjects _touchInput;
     [SerializeField] private VariableJoystick _joystick;
     [SerializeField] private CradleButtonSwing _cradleButtonSwing;
-    [SerializeField] private BossIcon _bossIcon;
-
-    [SerializeField] private Cradle _cradle;
-    [SerializeField] private Boss _boss;
 
     private bool _inputUsing;
     private bool _cradleUsing;
@@ -23,8 +19,6 @@ public class Inputs : MonoBehaviour
         _touchInput.Using += InputUsing;
         _joystick.Using += InputUsing;
         _cradleButtonSwing.Using += CradleUsing;
-        if (_bossIcon)
-            _bossIcon.Using += BossClick;
     }
 
     private void OnDisable()
@@ -32,8 +26,6 @@ public class Inputs : MonoBehaviour
         _touchInput.Using -= InputUsing;
         _joystick.Using -= InputUsing;
         _cradleButtonSwing.Using -= CradleUsing;
-        if (_bossIcon)
-            _bossIcon.Using -= BossClick;
     }
 
     private void InputUsing(bool active)
@@ -45,11 +37,4 @@ public class Inputs : MonoBehaviour
     {
         _cradleUsing = active;
     }
-
-    private void BossClick()
-    {
-        if (_inputUsing == false && _cradleUsing == false)
-            _boss.TakeDamage();
-    }
-
 }
