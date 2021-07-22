@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 
 
 
-public class Cradle : MonoBehaviour, IDragHandler
+public class Cradle : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     public event UnityAction CradleDestroyed;
     public event UnityAction<float> HPChangedNormalized;
+    public event UnityAction<bool> Using;
 
     public event UnityAction DamagedByClaw;
     public event UnityAction DamagedByWhill;
@@ -107,6 +108,15 @@ public class Cradle : MonoBehaviour, IDragHandler
         _audioSource.PlayOneShot(_babyCryes[Random.Range(0, _babyCryes.Length)]);
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Using?.Invoke(true);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Using?.Invoke(false);
+    }
 
     public void OnDrag(PointerEventData eventData)
     {

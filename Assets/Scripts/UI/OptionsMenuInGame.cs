@@ -45,13 +45,13 @@ public class OptionsMenuInGame : Menu
         if (_controlJoystick.isOn)
         {
             _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = false;
-            _cradleMover.GetComponent<PlayerMover>().enabled = true ;
+            _cradleMover.GetComponent<PlayerJoystickMover>().enabled = true ;
             
         }
         else
         {
             _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = true;
-            _cradleMover.GetComponent<PlayerMover>().enabled = false;
+            _cradleMover.GetComponent<PlayerJoystickMover>().enabled = false;
             
         }
         _controlFinger.enabled = false;

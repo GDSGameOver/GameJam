@@ -32,6 +32,7 @@ public class BossBearBehavior : MonoBehaviour
 
     private bool _canAttack = true;
     private bool _bossReveal = false;
+    private bool _bossHit;
     private float _waitFlySkullTimeAttack;
     private float _waitClawTimeAttack;
     private float _waitBigSkullTimeAttack;
@@ -216,7 +217,7 @@ public class BossBearBehavior : MonoBehaviour
         StartCoroutine(WaitForSkullTimeAttack());
     }
 
-    private void BossClick()
+    private void BossClick(bool active)
     {
         if (_inputs.CanDamaging)
             _boss.TakeDamage();
