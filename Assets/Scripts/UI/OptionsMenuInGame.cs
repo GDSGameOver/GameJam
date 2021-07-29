@@ -36,9 +36,9 @@ public class OptionsMenuInGame : Menu
             _modeHard.isOn = true;
         }
 
-        _modeEasy.enabled = false;
-        _modeNormal.enabled = false;
-        _modeHard.enabled = false;
+      //  _modeEasy.enabled = false;
+      //  _modeNormal.enabled = false;
+       // _modeHard.enabled = false;
     }
 
     private void OnEnable()

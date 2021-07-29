@@ -21,9 +21,10 @@ public class Cradle : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
 
     [SerializeField] private Inputs _inputs;
     [SerializeField] private HealSetting _healSetting;
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _cradleCrouchSound;
-    [SerializeField] private AudioClip[] _babyCryes;
+    [SerializeField] private PlayerJoystickMover _playerJoystickMover;
+   // [SerializeField] private AudioSource _audioSource;
+    //[SerializeField] private AudioClip _cradleCrouchSound;
+   // [SerializeField] private AudioClip[] _babyCryes;
 
     [SerializeField] private Animator _animator;
     private RectTransform _rectTransform;
@@ -103,24 +104,27 @@ public class Cradle : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     }
 
 
-    private void Cry()
-    {
-        _audioSource.PlayOneShot(_babyCryes[Random.Range(0, _babyCryes.Length)]);
-    }
+  //  private void Cry()
+  //  {
+  //      _audioSource.PlayOneShot(_babyCryes[Random.Range(0, _babyCryes.Length)]);
+ //   }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         Using?.Invoke(true);
+        _playerJoystickMover.enabled = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         Using?.Invoke(false);
+        _playerJoystickMover.enabled = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        _rectTransform.anchoredPosition += eventData.delta*1.4f;
+        _rectTransform.anchoredPosition += eventData.delta*1.6f;
+        _playerJoystickMover.enabled = false;
     }
 
    

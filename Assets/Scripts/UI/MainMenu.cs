@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Common;
 
 public class MainMenu : Menu
 {
@@ -12,11 +14,13 @@ public class MainMenu : Menu
     [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private RulesMenu _rulesMenu;
-    [SerializeField] private OptionsMenu _optionsMenu;
+    [SerializeField] private OptionsMenuInGame _optionsMenu;
+    private AdSettings _advertisment;
 
 
     private void OnEnable()
     {
+        _advertisment = GetComponent<AdSettings>();
         _playButton.onClick.AddListener(StartGame);
         _rulesButton.onClick.AddListener(OpenRulesMenu);
         _optionsButton.onClick.AddListener(OpenOptionsMenu);
@@ -31,6 +35,11 @@ public class MainMenu : Menu
         _exitButton.onClick.RemoveListener(ExitGame);
     }
 
+    private void Start()
+    {
+        _advertisment.ShowBanner();
+    }
+
     public void StartGame()
     {
         AudioSource.Play();
@@ -39,6 +48,7 @@ public class MainMenu : Menu
 
     private void OpenRulesMenu()
     {
+        _advertisment.HideBanner();
         AudioSource.Play();
         Close();
         _rulesMenu.Open();
@@ -46,7 +56,7 @@ public class MainMenu : Menu
 
     private void OpenOptionsMenu()
     {
-
+        _advertisment.HideBanner();
         AudioSource.Play();
         _optionsMenu.Open();
     }
