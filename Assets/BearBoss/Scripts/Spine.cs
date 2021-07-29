@@ -10,12 +10,12 @@ public class Spine : MonoBehaviour
     public event UnityAction Destroyed;
 
     [SerializeField] private Transform _pointToMove;
-    [SerializeField] private float _speed;
     [SerializeField] private int _numberOfHits;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Button _buttonSpineDestroy;
     [SerializeField] private Inputs _inputs;
 
+    private float _speed;
     private Animator _animator;
 
     private void OnEnable()
@@ -30,18 +30,21 @@ public class Spine : MonoBehaviour
 
     void Start()
     {
+        _speed = 1;
         _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, _pointToMove.position, _speed * Time.deltaTime);
+        Debug.Log(_speed);
     }
 
     public void TriggerToHideBoss()
     {
         Destroyed?.Invoke();
         _numberOfHits = 0;
+        _speed = .5f;
         transform.position = _startPoint.position;
         gameObject.SetActive(false);
     }

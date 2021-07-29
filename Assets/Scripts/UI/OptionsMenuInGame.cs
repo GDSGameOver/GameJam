@@ -6,14 +6,11 @@ using UnityEngine.Audio;
 
 public class OptionsMenuInGame : Menu
 {
-    [SerializeField] private Toggle _controlJoystick;
-    [SerializeField] private Toggle _controlFinger;
     [SerializeField] private Toggle _modeEasy;
     [SerializeField] private Toggle _modeNormal;
     [SerializeField] private Toggle _modeHard;
     [SerializeField] private Button _mainMenuButton;
     [SerializeField] private Image _background;
-    [SerializeField] private GameObject _cradleMover;
     [SerializeField] private AudioMixerGroup _audioMixer;
     [SerializeField] private Slider _sliderMusic;
     [SerializeField] private Slider _sliderSfx;
@@ -23,8 +20,6 @@ public class OptionsMenuInGame : Menu
         _sliderMusic.value = PlayerPrefs.GetFloat("MusicVolume");
         _sliderSfx.value =  PlayerPrefs.GetFloat("SfxVolume");
         CanvasGroup.blocksRaycasts = false;
-        _controlJoystick.isOn = PlayerPrefs.GetInt("JoystickControl")== 1;
-        _controlFinger.isOn = PlayerPrefs.GetInt("FingerControl") == 1;
 
         var difficult = PlayerPrefs.GetInt("Difficult");
  
@@ -41,21 +36,6 @@ public class OptionsMenuInGame : Menu
             _modeHard.isOn = true;
         }
 
-
-        if (_controlJoystick.isOn)
-        {
-            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = false;
-            _cradleMover.GetComponent<PlayerJoystickMover>().enabled = true ;
-            
-        }
-        else
-        {
-            _cradleMover.GetComponent<TouchNonUIOBjects>().enabled = true;
-            _cradleMover.GetComponent<PlayerJoystickMover>().enabled = false;
-            
-        }
-        _controlFinger.enabled = false;
-        _controlJoystick.enabled = false;
         _modeEasy.enabled = false;
         _modeNormal.enabled = false;
         _modeHard.enabled = false;

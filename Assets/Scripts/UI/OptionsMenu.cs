@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class OptionsMenu : Menu
 {
-    [SerializeField] private Toggle _controlJoystick;
-    [SerializeField] private Toggle _controlFinger;
     [SerializeField] private Toggle _modeEasy;
     [SerializeField] private Toggle _modeNormal;
     [SerializeField] private Toggle _modeHard;
@@ -79,9 +77,6 @@ public class OptionsMenu : Menu
 
     private void SaveSettings()
     {
-        PlayerPrefs.SetInt("JoystickControl", _controlJoystick.isOn ? 1 : 0);
-        PlayerPrefs.SetInt("FingerControl", _controlFinger.isOn ? 1 : 0);
-
         int difficult = 0;
         if (_modeEasy.isOn)
             difficult = 0;

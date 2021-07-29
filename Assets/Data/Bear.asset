@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _setting:
   - IncreaseNightmareValueByTime: 0
-    ReduceNighmareByHit: 2
+    ReduceNighmareByHit: 1.98
     IncreaseNightmareValueBySpine: 0.01
-  - IncreaseNightmareValueByTime: 0.5
-    ReduceNighmareByHit: 2
+  - IncreaseNightmareValueByTime: 0.2
+    ReduceNighmareByHit: 1.55
     IncreaseNightmareValueBySpine: 0.1
-  - IncreaseNightmareValueByTime: 0.7
-    ReduceNighmareByHit: 2
-    IncreaseNightmareValueBySpine: 0.1
+  - IncreaseNightmareValueByTime: 0.36
+    ReduceNighmareByHit: 1.31
+    IncreaseNightmareValueBySpine: 0.06

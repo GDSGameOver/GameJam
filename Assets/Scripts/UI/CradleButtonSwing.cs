@@ -16,5 +16,18 @@ public class CradleButtonSwing : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerUp(PointerEventData eventData)
     {
         Using?.Invoke(false);
+        //HealCoundown();
+    }
+
+    private void HealCoundown()
+    {
+        StartCoroutine(Wait());
+    }
+
+    private IEnumerator Wait()
+    {
+        enabled = false;
+        yield return new WaitForSeconds(.2f);
+        enabled = true;
     }
 }

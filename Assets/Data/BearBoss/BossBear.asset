@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossBear
   m_EditorClassIdentifier: 
   _damage:
+  - 25
   - 30
   - 35
-  - 40
