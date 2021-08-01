@@ -964,6 +964,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanvasGroup: {fileID: 8007536696210820775}
   AudioSource: {fileID: 0}
+  _toggleJoystick: {fileID: 1435312914}
+  _toggleFinger: {fileID: 106214201}
   _modeEasy: {fileID: 8007536696836317274}
   _modeNormal: {fileID: 8007536696187244765}
   _modeHard: {fileID: 8007536696340366964}

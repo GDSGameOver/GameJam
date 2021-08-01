@@ -19,9 +19,11 @@ public class Cradle : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     public event UnityAction DamagedByFlySkull;
     public event UnityAction DamagedByFlyBone;
 
+
     [SerializeField] private Inputs _inputs;
     [SerializeField] private HealSetting _healSetting;
     [SerializeField] private PlayerJoystickMover _playerJoystickMover;
+    
    // [SerializeField] private AudioSource _audioSource;
     //[SerializeField] private AudioClip _cradleCrouchSound;
    // [SerializeField] private AudioClip[] _babyCryes;
@@ -32,8 +34,9 @@ public class Cradle : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     private float _hp = 100;
     private float _hpMax = 100;
     private float _heal;
+    
 
-    private Vector3 _lastPosition;
+    
 
     private void Awake()
     {
@@ -112,19 +115,16 @@ public class Cradle : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     public void OnPointerDown(PointerEventData eventData)
     {
         Using?.Invoke(true);
-        _playerJoystickMover.enabled = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         Using?.Invoke(false);
-        _playerJoystickMover.enabled = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         _rectTransform.anchoredPosition += eventData.delta*1.6f;
-        _playerJoystickMover.enabled = false;
     }
 
    
