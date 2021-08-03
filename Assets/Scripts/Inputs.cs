@@ -8,18 +8,21 @@ public class Inputs : MonoBehaviour
     public bool CanPlayerHeal => _inputUsing == false && _cradleButtonUsing == true && _bossIconHit == false;
 
     [SerializeField] private BossIcon _bossIcon;
-    [SerializeField] private Cradle _cradle;
+    [SerializeField] private Cradle[] _cradle;
     [SerializeField] private VariableJoystick _joystick;
     [SerializeField] private CradleButtonSwing _cradleButtonSwing;
 
     private bool _inputUsing;
     private bool _cradleButtonUsing;
     private bool _bossIconHit;
+    private Cradle _selectedCradle;
 
     private void OnEnable()
     {
-        _bossIcon.Using += BossHitting; 
-        _cradle.Using += InputUsing;
+        _selectedCradle = _cradle[PlayerPrefs.GetInt("selectedCradle")];
+        _selectedCradle.gameObject.SetActive(true);
+        _bossIcon.Using += BossHitting;
+        _selectedCradle.Using += InputUsing;
         _joystick.Using += InputUsing;
         _cradleButtonSwing.Using += CradleUsing;
     }
@@ -27,7 +30,7 @@ public class Inputs : MonoBehaviour
     private void OnDisable()
     {
         _bossIcon.Using -= BossHitting;
-        _cradle.Using -= InputUsing;
+        _selectedCradle.Using -= InputUsing;
         _joystick.Using -= InputUsing;
         _cradleButtonSwing.Using -= CradleUsing;
     }

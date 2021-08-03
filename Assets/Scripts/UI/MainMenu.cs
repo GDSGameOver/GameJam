@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Api;
-using AppodealAds.Unity.Common;
 
 public class MainMenu : Menu
 {
@@ -13,17 +11,18 @@ public class MainMenu : Menu
     [SerializeField] private Button _rulesButton;
     [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _shopButton;
     [SerializeField] private RulesMenu _rulesMenu;
     [SerializeField] private OptionsMenuInGame _optionsMenu;
-    private AdSettings _advertisment;
+    [SerializeField] private Shop _shopMenu;
 
 
     private void OnEnable()
     {
-        _advertisment = GetComponent<AdSettings>();
         _playButton.onClick.AddListener(StartGame);
         _rulesButton.onClick.AddListener(OpenRulesMenu);
         _optionsButton.onClick.AddListener(OpenOptionsMenu);
+        _shopButton.onClick.AddListener(OpenShopMenu);
         _exitButton.onClick.AddListener(ExitGame);
     }
 
@@ -32,12 +31,8 @@ public class MainMenu : Menu
         _playButton.onClick.RemoveListener(StartGame);
         _rulesButton.onClick.RemoveListener(OpenRulesMenu);
         _optionsButton.onClick.RemoveListener(OpenOptionsMenu);
+        _shopButton.onClick.RemoveListener(OpenShopMenu);
         _exitButton.onClick.RemoveListener(ExitGame);
-    }
-
-    private void Start()
-    {
-        _advertisment.ShowBanner();
     }
 
     public void StartGame()
@@ -48,7 +43,6 @@ public class MainMenu : Menu
 
     private void OpenRulesMenu()
     {
-        _advertisment.HideBanner();
         AudioSource.Play();
         Close();
         _rulesMenu.Open();
@@ -56,9 +50,13 @@ public class MainMenu : Menu
 
     private void OpenOptionsMenu()
     {
-        _advertisment.HideBanner();
         AudioSource.Play();
         _optionsMenu.Open();
+    }
+
+    private void OpenShopMenu()
+    {
+        _shopMenu.Open();
     }
 
     private void ExitGame()
@@ -86,6 +84,4 @@ public class MainMenu : Menu
         _playButton.interactable = false;
         _exitButton.interactable = false;
     }
-
-    
 }

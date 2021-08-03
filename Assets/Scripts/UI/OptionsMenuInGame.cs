@@ -100,12 +100,14 @@ public class OptionsMenuInGame : Menu
 
     public void ChangeSound(float volume)
     {
+        _audioMixer.audioMixer.SetFloat("MainMenuSfx", Mathf.Lerp(-80, 0, volume));
         _audioMixer.audioMixer.SetFloat("BearBossSfx", Mathf.Lerp(-80, 0, volume));
         PlayerPrefs.SetFloat("SfxVolume", volume);
     }
 
     public void ChangeMusic(float volume)
     {
+        _audioMixer.audioMixer.SetFloat("MainMenuMusic", Mathf.Lerp(-80, 0, volume));
         _audioMixer.audioMixer.SetFloat("BearBossMusic", Mathf.Lerp(-80, 0, volume));
         PlayerPrefs.SetFloat("MusicVolume", volume);
     }

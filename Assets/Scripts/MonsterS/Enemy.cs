@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private AudioSource _attackSound;
 
+
     private float _damage;
 
     private void Awake()
